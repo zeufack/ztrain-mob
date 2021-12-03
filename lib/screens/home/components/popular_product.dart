@@ -8,6 +8,8 @@ import 'section_title.dart';
 class PopularProducts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // ProductDAO productDAO = Provider.of<ProductDAO>(context, listen: false);
+
     return Column(
       children: [
         Padding(
