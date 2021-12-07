@@ -7,12 +7,12 @@ import 'package:shop_app/screens/otp/otp_screen.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-class CompleteProfileForm extends StatefulWidget {
+class EditProfileForm extends StatefulWidget {
   @override
-  _CompleteProfileFormState createState() => _CompleteProfileFormState();
+  _EditProfileFormState createState() => _EditProfileFormState();
 }
 
-class _CompleteProfileFormState extends State<CompleteProfileForm> {
+class _EditProfileFormState extends State<EditProfileForm> {
   final _formKey = GlobalKey<FormState>();
   final List<String> errors = [];
   String firstName;

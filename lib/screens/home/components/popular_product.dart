@@ -1,13 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/components/product_card.dart';
 import 'package:shop_app/models/Product.dart';
+import 'package:shop_app/models/product_dao.dart';
 
 import '../../../size_config.dart';
 import 'section_title.dart';
 
-class PopularProducts extends StatelessWidget {
+class PopularProducts extends StatefulWidget {
+  @override
+  _PopularProductsState createState() => _PopularProductsState();
+}
+
+class _PopularProductsState extends State<PopularProducts> {
+  List<Product> productList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
+  loadData() async {
+    dynamic results = await ProductDAO().getAllProduct();
+    setState(() {
+      productList = results;
+    });
+    print(productList);
+  }
+
   @override
   Widget build(BuildContext context) {
+    // ProductDAO productDAO = Provider.of<ProductDAO>(context, listen: false);
+    List<Widget> list = new List<Widget>();
+
     return Column(
       children: [
         Padding(
@@ -19,18 +44,8 @@ class PopularProducts extends StatelessWidget {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: [
-              ...List.generate(
-                demoProducts.length,
-                (index) {
-                  if (demoProducts[index].isPopular)
-                    return ProductCard(product: demoProducts[index]);
-
-                  return SizedBox
-                      .shrink(); // here by default width and height is 0
-                },
-              ),
-              SizedBox(width: getProportionateScreenWidth(20)),
+            children: <Widget>[
+              for (Product product in productList) ProductCard(product: product)
             ],
           ),
         )

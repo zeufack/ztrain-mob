@@ -1,9 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shop_app/components/custom_surfix_icon.dart';
 import 'package:shop_app/components/form_error.dart';
 import 'package:shop_app/helper/keyboard.dart';
+import 'package:shop_app/helper/response.dart';
 import 'package:shop_app/screens/forgot_password/forgot_password_screen.dart';
 import 'package:shop_app/screens/login_success/login_success_screen.dart';
+import 'package:shop_app/screens/sign_in/auth.dart';
+import 'package:alert/alert.dart';
 
 import '../../../components/default_button.dart';
 import '../../../constants.dart';
@@ -20,6 +25,13 @@ class _SignFormState extends State<SignForm> {
   String password;
   bool remember = false;
   final List<String> errors = [];
+  bool _error = false;
+
+  void updateError() {
+    setState(() {
+      _error = !_error;
+    });
+  }
 
   void addError({String error}) {
     if (!errors.contains(error))
@@ -37,6 +49,7 @@ class _SignFormState extends State<SignForm> {
 
   @override
   Widget build(BuildContext context) {
+    final Auth auth = Provider.of<Auth>(context, listen: false);
     return Form(
       key: _formKey,
       child: Column(
@@ -45,6 +58,11 @@ class _SignFormState extends State<SignForm> {
           SizedBox(height: getProportionateScreenHeight(30)),
           buildPasswordFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
+          if (_error)
+            Text(
+              "Email ou Mot de passe incorrect",
+              style: const TextStyle(color: Colors.red),
+            ),
           Row(
             children: [
               Checkbox(
@@ -72,12 +90,19 @@ class _SignFormState extends State<SignForm> {
           SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
             text: "Continue",
-            press: () {
+            press: () async {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
-                // if all are valid then go to success screen
                 KeyboardUtil.hideKeyboard(context);
-                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+
+                Response response =
+                    await auth.signInWithEmailAndPassword(email, password);
+                if (response.status == 200) {
+                  Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+                } else {
+                  updateError();
+                  Alert(message: response.error).show();
+                }
               }
             },
           ),
