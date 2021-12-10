@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class FavoriteProduct extends StatefulWidget {
+  static String routeName = "/favorite";
+
   const FavoriteProduct({Key key}) : super(key: key);
 
   @override
