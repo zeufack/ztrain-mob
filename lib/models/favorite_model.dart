@@ -10,10 +10,11 @@ class FavoriteModel extends ChangeNotifier {
   List<Favorite> get items => List.from(_items);
 
   void favotise(String productId) {
+    setIsFavorite(productId);
     notifyListeners();
   }
 
-  void getData() async {
+  Future<dynamic> getData() async {
     final User user = auth.currentUser;
     final uid = user.uid;
     await favoritesCollection
@@ -30,6 +31,7 @@ class FavoriteModel extends ChangeNotifier {
               })
             })
         .catchError((error) => {print(error)});
+    return _items;
   }
 
   Future<void> setIsFavorite(String productId) async {

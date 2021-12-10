@@ -89,9 +89,12 @@ class ProductDAO extends AbsProductDAO {
 
   @override
   Future<void> addToCartd(String productId, int quantity) async {
+    final User user = auth.currentUser;
+    final uid = user.uid;
     bool exist = false;
     String cardId;
     await cartCollection
+        .where('userId', isEqualTo: uid)
         .where('productId', isEqualTo: productId)
         .get()
         .then((value) => {
@@ -105,8 +108,6 @@ class ProductDAO extends AbsProductDAO {
           .then((value) => print("panier mis à jour"))
           .catchError((error) => print("Failed to update user: $error"));
     } else {
-      final User user = auth.currentUser;
-      final uid = user.uid;
       return cartCollection
           .add({'userId': uid, 'productId': productId, 'quantity': quantity})
           .then((value) => {print('Cart Added')})
