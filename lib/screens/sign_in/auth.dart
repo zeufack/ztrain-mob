@@ -65,6 +65,8 @@ class Auth implements BaseAuth {
   Future<Response> signInWithFacebook() async {
     // Trigger the sign-in flow
     final LoginResult result = await FacebookAuth.instance.login();
+    print(result.message);
+    print(result.status);
     if (result.status == LoginStatus.success) {
       // Create a credential from the access token
       print('----------------------ok --------------------${result}');
@@ -74,7 +76,7 @@ class Auth implements BaseAuth {
       await FirebaseAuth.instance.signInWithCredential(credential);
       return Response(message: "connection OK", status: 200);
     }
-    return Response(message: "connection OK", status: 200);
+    return Response(message: "connection OK", status: 400);
     // try {
     //   final LoginResult loginResult = await FacebookAuth.instance.login();
     //   print('----------------------ok --------------------${loginResult}');

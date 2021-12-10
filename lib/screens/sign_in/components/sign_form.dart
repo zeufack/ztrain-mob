@@ -103,7 +103,6 @@ class _SignFormState extends State<SignForm> {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
                 KeyboardUtil.hideKeyboard(context);
-
                 Response response =
                     await auth.signInWithEmailAndPassword(email, password);
                 if (response.status == 200) {

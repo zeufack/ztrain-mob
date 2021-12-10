@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shop_app/components/no_account_text.dart';
 import 'package:shop_app/components/socal_card.dart';
 import 'package:shop_app/helper/response.dart';
+import 'package:shop_app/screens/login_success/login_success_screen.dart';
 import 'package:shop_app/screens/sign_in/auth.dart';
 import '../../../size_config.dart';
 import 'sign_form.dart';
@@ -37,6 +38,10 @@ class Body extends StatelessWidget {
                       icon: "assets/icons/facebook-2.svg",
                       press: () async {
                         var resp = await auth.signInWithFacebook();
+                        if (resp.status == 200) {
+                          Navigator.pushNamed(
+                              context, LoginSuccessScreen.routeName);
+                        }
                         print(resp);
                       },
                     ),
