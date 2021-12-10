@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/components/product_card.dart';
 import 'package:shop_app/models/Product.dart';
+import 'package:shop_app/models/favorite_model.dart';
 import 'package:shop_app/models/product_dao.dart';
 
 import '../../../size_config.dart';
@@ -13,10 +14,12 @@ class PopularProducts extends StatefulWidget {
 
 class _PopularProductsState extends State<PopularProducts> {
   List<Product> productList = [];
+  List<Favorite> userFavoriteProduct = [];
 
   @override
   void initState() {
     super.initState();
+    loadFavoriteProduct();
     loadData();
   }
 
@@ -24,6 +27,13 @@ class _PopularProductsState extends State<PopularProducts> {
     dynamic results = await ProductDAO().getAllProduct();
     setState(() {
       productList = results;
+    });
+  }
+
+  void loadFavoriteProduct() async {
+    List<Favorite> fav = await FavoriteModel().getData();
+    setState(() {
+      userFavoriteProduct = fav;
     });
   }
 
