@@ -153,6 +153,12 @@ class ProductDAO extends AbsProductDAO {
     }
   }
 
+  getCountProductCart() {
+    final User user = auth.currentUser;
+    final uid = user.uid;
+    return cartCollection.where('userId', isEqualTo: uid).snapshots();
+  }
+
   Future<double> getCartAmount() async {
     final User user = auth.currentUser;
     final uid = user.uid;
