@@ -24,6 +24,7 @@ class _SignFormState extends State<SignForm> {
   String email;
   String password;
   bool remember = false;
+  bool isLoading = false;
   final List<String> errors = [];
   bool _error = false;
 
@@ -45,6 +46,12 @@ class _SignFormState extends State<SignForm> {
       setState(() {
         errors.remove(error);
       });
+  }
+
+  void setLoading() {
+    setState(() {
+      isLoading = !isLoading;
+    });
   }
 
   @override
@@ -90,7 +97,9 @@ class _SignFormState extends State<SignForm> {
           SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
             text: "Continue",
+            isLoading: isLoading,
             press: () async {
+              setLoading();
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
                 KeyboardUtil.hideKeyboard(context);
@@ -98,9 +107,11 @@ class _SignFormState extends State<SignForm> {
                 Response response =
                     await auth.signInWithEmailAndPassword(email, password);
                 if (response.status == 200) {
+                  setLoading();
                   Navigator.pushNamed(context, LoginSuccessScreen.routeName);
                 } else {
                   updateError();
+                  setLoading();
                   Alert(message: response.error).show();
                 }
               }

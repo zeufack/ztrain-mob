@@ -4,7 +4,12 @@ import 'package:shop_app/size_config.dart';
 
 import 'edit_profile_form.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(

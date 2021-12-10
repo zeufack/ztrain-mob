@@ -22,6 +22,7 @@ class _SignUpFormState extends State<SignUpForm> {
   String password;
   String conformPassword;
   bool remember = false;
+  bool isLoading = false;
   final List<String> errors = [];
 
   void addError({String error}) {
@@ -36,6 +37,12 @@ class _SignUpFormState extends State<SignUpForm> {
       setState(() {
         errors.remove(error);
       });
+  }
+
+  void setLoading() {
+    setState(() {
+      isLoading = !isLoading;
+    });
   }
 
   @override
@@ -54,11 +61,14 @@ class _SignUpFormState extends State<SignUpForm> {
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
             text: "Continuer",
+            isLoading: isLoading,
             press: () {
+              setLoading();
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
                 auth.createUserWithEmailAndPassord(email, password);
                 // if all are valid then go to success screen
+                setLoading();
                 Navigator.pushNamed(context, LoginSuccessScreen.routeName);
               }
             },

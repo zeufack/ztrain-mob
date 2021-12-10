@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shop_app/components/no_account_text.dart';
 import 'package:shop_app/components/socal_card.dart';
+import 'package:shop_app/helper/response.dart';
+import 'package:shop_app/screens/sign_in/auth.dart';
 import '../../../size_config.dart';
 import 'sign_form.dart';
 
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final Auth auth = Provider.of<Auth>(context, listen: false);
     return SafeArea(
       child: SizedBox(
         width: double.infinity,
@@ -24,11 +28,17 @@ class Body extends StatelessWidget {
                   children: [
                     SocalCard(
                       icon: "assets/icons/google-icon.svg",
-                      press: () {},
+                      press: () async {
+                        Response resp = await auth.signInWithGoogle();
+                        print(resp);
+                      },
                     ),
                     SocalCard(
                       icon: "assets/icons/facebook-2.svg",
-                      press: () {},
+                      press: () async {
+                        var resp = await auth.signInWithFacebook();
+                        print(resp);
+                      },
                     ),
                     SocalCard(
                       icon: "assets/icons/twitter.svg",
