@@ -1,14 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop_app/components/default_button.dart';
+import 'package:shop_app/models/product_dao.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-class CheckoutCard extends StatelessWidget {
-  const CheckoutCard({
-    Key key,
-  }) : super(key: key);
+class CheckoutCard extends StatefulWidget {
+  const CheckoutCard({Key key}) : super(key: key);
+
+  @override
+  _CheckoutCardState createState() => _CheckoutCardState();
+}
+
+class _CheckoutCardState extends State<CheckoutCard> {
+  double amount;
+  @override
+  void initState() {
+    loadData();
+    super.initState();
+  }
+
+  void loadData() async {
+    dynamic amounts = await ProductDAO().getCartAmount().then((value) => {
+          setState(() {
+            amount = value;
+          })
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +87,7 @@ class CheckoutCard extends StatelessWidget {
                     text: "Total:\n",
                     children: [
                       TextSpan(
-                        text: "\$337.15",
+                        text: "$amount",
                         style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                     ],
@@ -77,7 +96,7 @@ class CheckoutCard extends StatelessWidget {
                 SizedBox(
                   width: getProportionateScreenWidth(190),
                   child: DefaultButton(
-                    text: "Check Out",
+                    text: "Valider",
                     press: () {},
                   ),
                 ),

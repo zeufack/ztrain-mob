@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 
-import 'Product.dart';
-
 class Cart {
-  final Product product;
-  final int numOfItem;
+  String id;
+  final String productId;
+  final String userId;
+  final int quantity;
 
-  Cart({@required this.product, @required this.numOfItem});
+  Cart(
+      {this.id,
+      @required this.userId,
+      @required this.productId,
+      @required this.quantity});
+
+  Cart.fromJson(Map<String, Object> json)
+      : this(
+            userId: json['userId'] as String,
+            productId: json['productId'] as String,
+            quantity: json['quantity'] as int);
+  Map<String, Object> toJson() {
+    return {'userId': userId, 'productId': productId, 'quantity': quantity};
+  }
 }
-
-// Demo data for our cart
-
-List<Cart> demoCarts = [
-  Cart(product: demoProducts[0], numOfItem: 2),
-  Cart(product: demoProducts[1], numOfItem: 1),
-  Cart(product: demoProducts[3], numOfItem: 1),
-];

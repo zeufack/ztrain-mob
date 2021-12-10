@@ -1,8 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/models/Product.dart';
 
 abstract class AbsProductDAO {
   Future<List<Product>> getAllProduct();
-  Future<Product> getProductById();
+  Future<List<Cart>> getProductForCart();
+  Future<Product> getProductById(String id);
   Future<Product> setProductFavorite();
+  Future<void> addToCartd(String productId, int quantity);
+  Future<void> deletedFromCard(String cartId);
+  Future<void> setIsFavorite(String productId);
 }

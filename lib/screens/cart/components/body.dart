@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:shop_app/models/Cart.dart';
+import 'package:shop_app/models/product_dao.dart';
 
 import '../../../size_config.dart';
 import 'cart_card.dart';
@@ -11,22 +13,37 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  List<Cart> carts = [];
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
+  loadData() async {
+    dynamic results = await ProductDAO().getProductForCart();
+    setState(() {
+      carts = results;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    ProductDAO productDAO = Provider.of<ProductDAO>(context, listen: true);
     return Padding(
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
       child: ListView.builder(
-        itemCount: demoCarts.length,
+        itemCount: carts.length,
         itemBuilder: (context, index) => Padding(
           padding: EdgeInsets.symmetric(vertical: 10),
           child: Dismissible(
-            key: Key(demoCarts[index].product.id.toString()),
+            key: UniqueKey(),
             direction: DismissDirection.endToStart,
             onDismissed: (direction) {
-              setState(() {
-                demoCarts.removeAt(index);
-              });
+              productDAO.deletedFromCard(carts[index].id);
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('retirer du panier')));
             },
             background: Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
@@ -41,7 +58,7 @@ class _BodyState extends State<Body> {
                 ],
               ),
             ),
-            child: CartCard(cart: demoCarts[index]),
+            child: CartCard(cart: carts[index]),
           ),
         ),
       ),

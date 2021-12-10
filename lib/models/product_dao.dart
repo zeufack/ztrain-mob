@@ -1,18 +1,24 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/widgets.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/models/Product.dart';
 import 'package:shop_app/models/abstract_product_dao.dart';
 
 class ProductDAO extends AbsProductDAO {
-  final CollectionReference collection =
+  final CollectionReference productCollection =
       FirebaseFirestore.instance.collection('Products');
+  final CollectionReference cartCollection =
+      FirebaseFirestore.instance.collection('Carts');
+  final CollectionReference favoritesCollection =
+      FirebaseFirestore.instance.collection('Favorites');
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  double amount = 0.0;
 
   @override
   Future<List<Product>> getAllProduct() async {
     List<Product> productList = [];
     try {
-      await collection.get().then((QuerySnapshot querySnapshot) => {
+      await productCollection.get().then((QuerySnapshot querySnapshot) => {
             querySnapshot.docs.forEach((doc) {
               Product product = Product(
                 id: doc.id,
@@ -34,12 +40,146 @@ class ProductDAO extends AbsProductDAO {
   }
 
   @override
-  Future<Product> getProductById() {
-    throw UnimplementedError();
+  Future<List<Cart>> getProductForCart() async {
+    final User user = auth.currentUser;
+    final uid = user.uid;
+    List<Cart> carts = [];
+    try {
+      await cartCollection
+          .where('userId', isEqualTo: uid)
+          .get()
+          .then((QuerySnapshot querySnapshot) => {
+                querySnapshot.docs.forEach((doc) {
+                  print(doc.data());
+                  Cart cart = Cart(
+                      id: doc.id,
+                      userId: doc['userId'],
+                      productId: doc['productId'],
+                      quantity: doc['quantity']);
+                  print('this is cart  $cart');
+                  carts.add(cart);
+                })
+              });
+    } catch (e) {}
+    return carts;
+  }
+
+  @override
+  Future<Product> getProductById(String documentId) async {
+    Product testProduct;
+    try {
+      await productCollection.doc(documentId).get().then((value) => {
+            testProduct = Product(
+                id: value.id,
+                images: value['images'],
+                title: value['title'],
+                price: value['price'],
+                description: value['description'])
+          });
+      return testProduct;
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
   Future<Product> setProductFavorite() {
     throw UnimplementedError();
+  }
+
+  @override
+  Future<void> addToCartd(String productId, int quantity) async {
+    bool exist = false;
+    String cardId;
+    await cartCollection
+        .where('productId', isEqualTo: productId)
+        .get()
+        .then((value) => {
+              if (value.docs.length == 1)
+                {exist = true, cardId = value.docs[0].id}
+            });
+    if (exist) {
+      return cartCollection
+          .doc(cardId)
+          .update({'quantity': quantity})
+          .then((value) => print("panier mis à jour"))
+          .catchError((error) => print("Failed to update user: $error"));
+    } else {
+      final User user = auth.currentUser;
+      final uid = user.uid;
+      return cartCollection
+          .add({'userId': uid, 'productId': productId, 'quantity': quantity})
+          .then((value) => {print('Cart Added')})
+          .catchError((error) => {print('Failed to add cartd')});
+    }
+  }
+
+  @override
+  Future<void> deletedFromCard(String cartId) async {
+    return await cartCollection
+        .doc(cartId)
+        .delete()
+        .then((value) => {print('successfully remove from cart')})
+        .catchError((error) => {print(error)});
+  }
+
+  @override
+  Future<void> setIsFavorite(String productId) async {
+    final User user = auth.currentUser;
+    final uid = user.uid;
+    bool exit = false;
+    String docId;
+
+    await favoritesCollection
+        .where('productId', isEqualTo: productId)
+        .get()
+        .then((value) => {
+              if (value.docs.length == 1)
+                {exit = true, docId = value.docs[0].id}
+            });
+
+    if (exit) {
+      return await favoritesCollection
+          .doc(docId)
+          .delete()
+          .then((value) => {print('successfully remove from favorite')})
+          .catchError((error) => {print(error)});
+    } else {
+      return await favoritesCollection
+          .add({'userId': uid, 'productId': productId})
+          .then((value) => {print("successfully add to favotires")})
+          .catchError((error) => {print(error)});
+    }
+  }
+
+  Future<double> getCartAmount() async {
+    final User user = auth.currentUser;
+    final uid = user.uid;
+    int qty;
+    await cartCollection
+        .where('userId', isEqualTo: uid)
+        .get()
+        .then((QuerySnapshot querySnapshot) => {
+              querySnapshot.docs.forEach(
+                (doc) {
+                  qty = doc['quantity'];
+                  productCollection
+                      .doc(doc['productId'])
+                      .get()
+                      .then((DocumentSnapshot documentSnapshot) {
+                    if (documentSnapshot.exists) {
+                      amount = amount + (documentSnapshot.get('price') * qty);
+                    } else {
+                      print('Document does not exist on the database');
+                    }
+                  });
+                },
+              )
+            });
+    return amount;
+  }
+
+  void setAmouunt(double value) async {
+    amount = value;
   }
 }

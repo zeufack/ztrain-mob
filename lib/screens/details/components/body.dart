@@ -1,36 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/models/Product.dart';
+import 'package:shop_app/models/product_dao.dart';
 import 'package:shop_app/size_config.dart';
 
-import 'color_dots.dart';
 import 'product_description.dart';
 import 'top_rounded_container.dart';
 import 'product_images.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   final Product product;
-
   const Body({Key key, @required this.product}) : super(key: key);
 
   @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  int quantity = 0;
+  @override
   Widget build(BuildContext context) {
+    final ProductDAO productDAO =
+        Provider.of<ProductDAO>(context, listen: false);
+
     return ListView(
       children: [
-        ProductImages(product: product),
+        ProductImages(product: widget.product),
         TopRoundedContainer(
           color: Colors.white,
           child: Column(
             children: [
               ProductDescription(
-                product: product,
+                product: widget.product,
                 pressOnSeeMore: () {},
               ),
               TopRoundedContainer(
                 color: Color(0xFFF6F7F9),
                 child: Column(
                   children: [
-                    // ColorDots(product: product),
+                    Container(
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    if (quantity > 0) {
+                                      --quantity;
+                                    }
+                                  });
+                                },
+                                icon: const Icon(Icons.remove)),
+                            Text('$quantity'),
+                            IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    if (quantity < 10) {
+                                      ++quantity;
+                                    }
+                                  });
+                                },
+                                icon: Icon(Icons.add))
+                          ],
+                        ),
+                      ),
+                    ),
                     TopRoundedContainer(
                       color: Colors.white,
                       child: Padding(
@@ -42,7 +78,20 @@ class Body extends StatelessWidget {
                         ),
                         child: DefaultButton(
                           text: "Ajouter au panier",
-                          press: () {},
+                          press: () {
+                            if (quantity == 0) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text(
+                                          'Indiquer le nombre d\'article')));
+                            } else {
+                              productDAO.addToCartd(
+                                  widget.product.id, quantity);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Panier mise à jours')));
+                            }
+                          },
                         ),
                       ),
                     ),

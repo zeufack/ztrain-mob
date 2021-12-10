@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/models/favorite_model.dart';
 import 'package:shop_app/models/product_dao.dart';
 import 'package:shop_app/routes.dart';
 import 'package:shop_app/screens/sign_in/auth.dart';
@@ -23,10 +24,11 @@ class MyApp extends StatelessWidget {
             create: (_) => Auth(),
             lazy: false,
           ),
-          // Provider(
-          //   create: (_) => ProductDAO(),
-          //   lazy: true,
-          // )
+          Provider(
+            create: (_) => ProductDAO(),
+            lazy: true,
+          ),
+          ChangeNotifierProvider(create: (context) => FavoriteModel()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
