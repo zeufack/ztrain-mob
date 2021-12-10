@@ -88,7 +88,7 @@ class ProductDAO extends AbsProductDAO {
   }
 
   @override
-  Future<void> addToCartd(String productId, int quantity) async {
+  Future<void> addToCartd(String productId, int quantity, double price) async {
     final User user = auth.currentUser;
     final uid = user.uid;
     bool exist = false;

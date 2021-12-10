@@ -6,7 +6,7 @@ abstract class AbsProductDAO {
   Future<List<Cart>> getProductForCart();
   Future<Product> getProductById(String id);
   Future<Product> setProductFavorite();
-  Future<void> addToCartd(String productId, int quantity);
+  Future<void> addToCartd(String productId, int quantity, double price);
   Future<void> deletedFromCard(String cartId);
   Future<void> setIsFavorite(String productId);
 }

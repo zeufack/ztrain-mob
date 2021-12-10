@@ -85,8 +85,8 @@ class _BodyState extends State<Body> {
                                       content: Text(
                                           'Indiquer le nombre d\'article')));
                             } else {
-                              productDAO.addToCartd(
-                                  widget.product.id, quantity);
+                              productDAO.addToCartd(widget.product.id, quantity,
+                                  widget.product.price);
                               ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                       content: Text('Panier mise à jours')));
