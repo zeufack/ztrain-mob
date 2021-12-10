@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shop_app/helper/response.dart';
 
 abstract class BaseAuth {
@@ -6,7 +7,7 @@ abstract class BaseAuth {
   Future<String> createUserWithEmailAndPassord(String email, String password);
   Future<String> currentUser();
   Future<void> signOut();
-  Future<String> signInWithGoogle();
-  Future<String> signInWithFacebook();
+  Future<Response> signInWithGoogle();
+  Future<Response> signInWithFacebook();
   Future<String> signInWithTweeter();
 }
