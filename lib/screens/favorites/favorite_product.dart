@@ -12,6 +12,8 @@ class FavoriteProduct extends StatefulWidget {
 class _FavoriteProductState extends State<FavoriteProduct> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      color: Colors.orange,
+    );
   }
 }
