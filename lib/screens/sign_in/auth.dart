@@ -1,3 +1,4 @@
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:shop_app/helper/response.dart';
 import 'package:shop_app/screens/sign_in/abstract_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -41,13 +42,18 @@ class Auth implements BaseAuth {
   }
 
   @override
-  Future<String> signInWithGoogle() async {
+  Future<Response> signInWithGoogle() async {
     final GoogleSignInAccount account = await _googleSignIn.signIn();
     final GoogleSignInAuthentication _auth = await account.authentication;
     final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: _auth.accessToken, idToken: _auth.idToken);
 
-    return (await _firebaseAuth.signInWithCredential(credential)).user.uid;
+    try {
+      await _firebaseAuth.signInWithCredential(credential);
+      return Response(message: "connection OK", status: 200);
+    } on FirebaseAuthException catch (e) {
+      return Response(message: "connection faild", status: 400);
+    }
   }
 
   @override
@@ -56,8 +62,35 @@ class Auth implements BaseAuth {
   }
 
   @override
-  Future<String> signInWithFacebook() {
-    throw UnimplementedError();
+  Future<Response> signInWithFacebook() async {
+    // Trigger the sign-in flow
+    final LoginResult result = await FacebookAuth.instance.login();
+    print(result.message);
+    print(result.status);
+    if (result.status == LoginStatus.success) {
+      // Create a credential from the access token
+      print('----------------------ok --------------------${result}');
+      final OAuthCredential credential =
+          FacebookAuthProvider.credential(result.accessToken.token);
+      // Once signed in, return the UserCredential
+      await FirebaseAuth.instance.signInWithCredential(credential);
+      return Response(message: "connection OK", status: 200);
+    }
+    return Response(message: "connection OK", status: 400);
+    // try {
+    //   final LoginResult loginResult = await FacebookAuth.instance.login();
+    //   print('----------------------ok --------------------${loginResult}');
+    //   // Create a credential from the access token
+    //   final OAuthCredential facebookAuthCredential =
+    //       FacebookAuthProvider.credential(loginResult.accessToken.token);
+
+    //   await _firebaseAuth.signInWithCredential(facebookAuthCredential);
+
+    //   return Response(message: "connection OK", status: 200);
+    // } on FirebaseAuthException catch (e) {
+    //   print('----------------------KO --------------------');
+    //   return Response(message: "connection faild", status: 400);
+    // }
   }
 
   @override

@@ -153,31 +153,16 @@ class ProductDAO extends AbsProductDAO {
     }
   }
 
-  Future<double> getCartAmount() async {
+  getCountProductCart() {
     final User user = auth.currentUser;
     final uid = user.uid;
-    int qty;
-    await cartCollection
-        .where('userId', isEqualTo: uid)
-        .get()
-        .then((QuerySnapshot querySnapshot) => {
-              querySnapshot.docs.forEach(
-                (doc) {
-                  qty = doc['quantity'];
-                  productCollection
-                      .doc(doc['productId'])
-                      .get()
-                      .then((DocumentSnapshot documentSnapshot) {
-                    if (documentSnapshot.exists) {
-                      amount = amount + (documentSnapshot.get('price') * qty);
-                    } else {
-                      print('Document does not exist on the database');
-                    }
-                  });
-                },
-              )
-            });
-    return amount;
+    return cartCollection.where('userId', isEqualTo: uid).snapshots();
+  }
+
+  getCartAmount() {
+    final User user = auth.currentUser;
+    final uid = user.uid;
+    return cartCollection.where('userId', isEqualTo: uid).snapshots();
   }
 
   void setAmouunt(double value) async {

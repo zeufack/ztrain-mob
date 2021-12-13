@@ -28,7 +28,6 @@ class _PopularProductsState extends State<PopularProducts> {
     setState(() {
       productList = results;
     });
-    print(productList);
   }
 
   void loadFavoriteProduct() async {
