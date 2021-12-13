@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop_app/components/default_button.dart';
@@ -14,97 +15,90 @@ class CheckoutCard extends StatefulWidget {
 }
 
 class _CheckoutCardState extends State<CheckoutCard> {
+  final Stream<QuerySnapshot> cartProducts = ProductDAO().getCartAmount();
   double amount;
-  @override
-  void initState() {
-    loadData();
-    super.initState();
-  }
-
-  void loadData() async {
-    dynamic amounts = await ProductDAO().getCartAmount().then((value) => {
-          setState(() {
-            amount = value;
-          })
-        });
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        vertical: getProportionateScreenWidth(15),
-        horizontal: getProportionateScreenWidth(30),
-      ),
-      // height: 174,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
-        ),
-        boxShadow: [
-          BoxShadow(
-            offset: Offset(0, -15),
-            blurRadius: 20,
-            color: Color(0xFFDADADA).withOpacity(0.15),
-          )
-        ],
-      ),
-      child: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(10),
-                  height: getProportionateScreenWidth(40),
-                  width: getProportionateScreenWidth(40),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFF5F6F9),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: SvgPicture.asset("assets/icons/receipt.svg"),
-                ),
-                Spacer(),
-                Text("Ajouter un bon d'achat"),
-                const SizedBox(width: 10),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 12,
-                  color: kTextColor,
+    return StreamBuilder<QuerySnapshot>(
+        stream: cartProducts,
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          // snapshot.data.docs.map((DocumentSnapshot document) => {
+          //   Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+
+          // });
+          return Container(
+            padding: EdgeInsets.symmetric(
+              vertical: getProportionateScreenWidth(15),
+              horizontal: getProportionateScreenWidth(30),
+            ),
+            // height: 174,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  offset: Offset(0, -15),
+                  blurRadius: 20,
+                  color: Color(0xFFDADADA).withOpacity(0.15),
                 )
               ],
             ),
-            SizedBox(height: getProportionateScreenHeight(20)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text.rich(
-                  TextSpan(
-                    text: "Total:\n",
+            child: SafeArea(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
                     children: [
-                      TextSpan(
-                        text: "$amount",
-                        style: TextStyle(fontSize: 16, color: Colors.black),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        height: getProportionateScreenWidth(40),
+                        width: getProportionateScreenWidth(40),
+                        decoration: BoxDecoration(
+                          color: Color(0xFFF5F6F9),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: SvgPicture.asset("assets/icons/receipt.svg"),
+                      ),
+                      Spacer(),
+                      Text("Ajouter un bon d'achat"),
+                      const SizedBox(width: 10),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        size: 12,
+                        color: kTextColor,
+                      )
+                    ],
+                  ),
+                  SizedBox(height: getProportionateScreenHeight(20)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text.rich(
+                        TextSpan(text: "Total:\n", children: [
+                          TextSpan(
+                            text: '0',
+                            style: TextStyle(fontSize: 16, color: Colors.black),
+                          ),
+                        ]),
+                      ),
+                      SizedBox(
+                        width: getProportionateScreenWidth(190),
+                        child: DefaultButton(
+                          text: "Valider",
+                          press: () {},
+                        ),
                       ),
                     ],
                   ),
-                ),
-                SizedBox(
-                  width: getProportionateScreenWidth(190),
-                  child: DefaultButton(
-                    text: "Valider",
-                    press: () {},
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
-    );
+          );
+        });
   }
 }
