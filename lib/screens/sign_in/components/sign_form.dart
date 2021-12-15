@@ -54,6 +54,8 @@ class _SignFormState extends State<SignForm> {
     });
   }
 
+  bool _isObscure = true;
+
   @override
   Widget build(BuildContext context) {
     final Auth auth = Provider.of<Auth>(context, listen: false);
@@ -123,7 +125,7 @@ class _SignFormState extends State<SignForm> {
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
-      obscureText: true,
+      obscureText: _isObscure,
       onSaved: (newValue) => password = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
@@ -149,7 +151,13 @@ class _SignFormState extends State<SignForm> {
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
+        suffixIcon: IconButton(
+            onPressed: () {
+              setState(() {
+                _isObscure = !_isObscure;
+              });
+            },
+            icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off)),
       ),
     );
   }

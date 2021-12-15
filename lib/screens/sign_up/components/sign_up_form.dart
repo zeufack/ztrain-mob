@@ -23,6 +23,8 @@ class _SignUpFormState extends State<SignUpForm> {
   String conformPassword;
   bool remember = false;
   bool isLoading = false;
+  bool isObscure = true;
+  bool isObscureC = true;
   final List<String> errors = [];
 
   void addError({String error}) {
@@ -80,7 +82,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildConformPassFormField() {
     return TextFormField(
-      obscureText: true,
+      obscureText: isObscureC,
       onSaved: (newValue) => conformPassword = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
@@ -106,14 +108,21 @@ class _SignUpFormState extends State<SignUpForm> {
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
+        suffixIcon: IconButton(
+          icon: Icon(isObscureC ? Icons.visibility : Icons.visibility_off),
+          onPressed: () {
+            setState(() {
+              isObscureC = !isObscureC;
+            });
+          },
+        ),
       ),
     );
   }
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
-      obscureText: true,
+      obscureText: isObscure,
       onSaved: (newValue) => password = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
@@ -139,7 +148,14 @@ class _SignUpFormState extends State<SignUpForm> {
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
+        suffixIcon: IconButton(
+          icon: Icon(isObscure ? Icons.visibility : Icons.visibility_off),
+          onPressed: () {
+            setState(() {
+              isObscure = !isObscure;
+            });
+          },
+        ),
       ),
     );
   }

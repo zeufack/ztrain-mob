@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Cart {
@@ -5,19 +6,31 @@ class Cart {
   final String productId;
   final String userId;
   final int quantity;
+  final double price;
 
-  Cart(
-      {this.id,
-      @required this.userId,
-      @required this.productId,
-      @required this.quantity});
+  Cart({
+    this.id,
+    @required this.userId,
+    @required this.productId,
+    @required this.quantity,
+    @required this.price,
+  });
 
-  Cart.fromJson(Map<String, Object> json)
-      : this(
-            userId: json['userId'] as String,
-            productId: json['productId'] as String,
-            quantity: json['quantity'] as int);
-  Map<String, Object> toJson() {
-    return {'userId': userId, 'productId': productId, 'quantity': quantity};
+  factory Cart.fromMap(Map data) {
+    return Cart(
+        userId: data['userId'],
+        productId: data['productId'],
+        quantity: data['quantity'],
+        price: data['price']);
+  }
+
+  factory Cart.fromFireStore(DocumentSnapshot doc) {
+    Map data = doc.data();
+    return Cart(
+        id: doc.id,
+        userId: data['userId'],
+        productId: data['productId'],
+        quantity: data['quantity'],
+        price: data['price']);
   }
 }

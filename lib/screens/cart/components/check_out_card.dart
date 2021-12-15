@@ -16,17 +16,17 @@ class CheckoutCard extends StatefulWidget {
 
 class _CheckoutCardState extends State<CheckoutCard> {
   final Stream<QuerySnapshot> cartProducts = ProductDAO().getCartAmount();
-  double amount;
+  double amount = 0.0;
+  // Map data = [] as Map;
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
         stream: cartProducts,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          // snapshot.data.docs.map((DocumentSnapshot document) => {
-          //   Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-
-          // });
+          if (snapshot.data != null) {
+            snapshot.data.docs.forEach((element) {});
+          }
           return Container(
             padding: EdgeInsets.symmetric(
               vertical: getProportionateScreenWidth(15),
