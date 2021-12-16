@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/components/custom_surfix_icon.dart';
 import 'package:shop_app/components/default_button.dart';
@@ -7,7 +6,6 @@ import 'package:shop_app/components/form_error.dart';
 import 'package:shop_app/firestoreService/userService.dart';
 import 'package:shop_app/helper/response.dart';
 import 'package:shop_app/models/User.dart';
-import 'package:shop_app/screens/otp/otp_screen.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';

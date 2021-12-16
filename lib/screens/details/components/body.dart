@@ -18,7 +18,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  int quantity = 0;
+  int quantity = 1;
   @override
   Widget build(BuildContext context) {
     final ProductDAO productDAO =

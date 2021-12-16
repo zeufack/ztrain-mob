@@ -19,20 +19,23 @@ class ProductDAO extends AbsProductDAO {
     List<Product> productList = [];
     try {
       await productCollection.get().then((QuerySnapshot querySnapshot) => {
-            querySnapshot.docs.forEach((doc) {
-              Product product = Product(
-                id: doc.id,
-                images: doc['images'],
-                title: doc['title'],
-                price: doc['price'],
-                description: doc['description'],
-                isFavourite: doc['isFavorite'],
-                isPopular: true,
-              );
-              productList.add(product);
-            })
+            if (querySnapshot != null)
+              {
+                querySnapshot.docs?.forEach((doc) {
+                  Product product = Product(
+                    id: doc.id,
+                    images: doc['images'],
+                    title: doc['title'],
+                    price: doc['price'],
+                    description: doc['description'],
+                    isFavourite: doc['isFavorite'],
+                    isPopular: true,
+                  );
+                  productList.add(product);
+                })
+              }
           });
-      print(productList);
+      // print(productList);
       return productList;
     } catch (e) {
       print(e);
@@ -55,7 +58,8 @@ class ProductDAO extends AbsProductDAO {
                       id: doc.id,
                       userId: doc['userId'],
                       productId: doc['productId'],
-                      quantity: doc['quantity']);
+                      quantity: doc['quantity'],
+                      price: doc['price']);
                   print('this is cart  $cart');
                   carts.add(cart);
                 })
@@ -109,7 +113,12 @@ class ProductDAO extends AbsProductDAO {
           .catchError((error) => print("Failed to update user: $error"));
     } else {
       return cartCollection
-          .add({'userId': uid, 'productId': productId, 'quantity': quantity})
+          .add({
+            'userId': uid,
+            'productId': productId,
+            'quantity': quantity,
+            'price': price
+          })
           .then((value) => {print('Cart Added')})
           .catchError((error) => {print('Failed to add cartd')});
     }
