@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/models/product_dao.dart';
+import 'package:stripe_payment/stripe_payment.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -17,6 +19,26 @@ class CheckoutCard extends StatefulWidget {
 class _CheckoutCardState extends State<CheckoutCard> {
   final Stream<QuerySnapshot> cartProducts = ProductDAO().getCartAmount();
   double amount;
+
+  @override
+  initState() {
+    super.initState();
+
+    StripePayment.setOptions(StripeOptions(
+        publishableKey:
+            "pk_test_51K6WKhIgwaOpAFgPWJ1rpwYWc3Cz8Jpuqalw0ICzHvHmewANDPeZamvQkl1xMYemqlYBJyGweeA7k1ILx5c349Pb00yKzNS48L",
+        merchantId: "Test",
+        androidPayMode: 'test'));
+  }
+
+  Future<void> checkout() async {
+    /// retrieve data from the backend
+    StripePayment.paymentRequestWithCardForm(CardFormPaymentRequest()).then(
+        (paymentMethod) {
+      print('--------------------------success--------------------------');
+    }).catchError(() =>
+        {print('--------------------------error--------------------------')});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,10 +110,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
                       ),
                       SizedBox(
                         width: getProportionateScreenWidth(190),
-                        child: DefaultButton(
-                          text: "Valider",
-                          press: () {},
-                        ),
+                        child: DefaultButton(text: "Valider", press: checkout),
                       ),
                     ],
                   ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/models/favorite_model.dart';
 import 'package:shop_app/models/product_dao.dart';
@@ -10,6 +11,11 @@ import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Stripe.publishableKey =
+  //     "pk_test_51K6WKhIgwaOpAFgPWJ1rpwYWc3Cz8Jpuqalw0ICzHvHmewANDPeZamvQkl1xMYemqlYBJyGweeA7k1ILx5c349Pb00yKzNS48L";
+  // Stripe.merchantIdentifier = 'any string works';
+  // await Stripe.instance.applySettings();
   await Firebase.initializeApp();
   runApp(MyApp());
 }
