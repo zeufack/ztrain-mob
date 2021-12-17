@@ -7,6 +7,7 @@ import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/models/Product.dart';
 import 'package:shop_app/models/product_dao.dart';
+import 'package:shop_app/screens/home/home_screen.dart';
 import 'package:stripe_payment/stripe_payment.dart';
 
 import '../../../constants.dart';
@@ -49,6 +50,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
       carts.forEach((element) {
         ProductDAO().deletedFromCard(element.id);
       });
+      Navigator.pushNamed(context, HomeScreen.routeName);
     }).catchError(() => {print('-------error---------------')});
   }
 
