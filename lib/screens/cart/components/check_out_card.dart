@@ -2,7 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:shop_app/components/default_button.dart';
+import 'package:shop_app/models/Cart.dart';
+import 'package:shop_app/models/Product.dart';
 import 'package:shop_app/models/product_dao.dart';
 import 'package:stripe_payment/stripe_payment.dart';
 
@@ -19,12 +22,12 @@ class CheckoutCard extends StatefulWidget {
 class _CheckoutCardState extends State<CheckoutCard> {
   final Stream<QuerySnapshot> cartProducts = ProductDAO().getCartAmount();
   double amount = 0.0;
-  // Map data = [] as Map;
+  List<Cart> carts = [];
 
   @override
   initState() {
     super.initState();
-
+    loadData();
     StripePayment.setOptions(StripeOptions(
         publishableKey:
             "pk_test_51K6WKhIgwaOpAFgPWJ1rpwYWc3Cz8Jpuqalw0ICzHvHmewANDPeZamvQkl1xMYemqlYBJyGweeA7k1ILx5c349Pb00yKzNS48L",
@@ -32,22 +35,34 @@ class _CheckoutCardState extends State<CheckoutCard> {
         androidPayMode: 'test'));
   }
 
+  loadData() async {
+    dynamic results = await ProductDAO().getProductForCart();
+    setState(() {
+      carts = results;
+    });
+  }
+
   Future<void> checkout() async {
     /// retrieve data from the backend
-    StripePayment.paymentRequestWithCardForm(CardFormPaymentRequest()).then(
-        (paymentMethod) {
-      print('--------------------------success--------------------------');
-    }).catchError(() =>
-        {print('--------------------------error--------------------------')});
+    StripePayment.paymentRequestWithCardForm(CardFormPaymentRequest())
+        .then((paymentMethod) {
+      carts.forEach((element) {
+        ProductDAO().deletedFromCard(element.id);
+      });
+    }).catchError(() => {print('-------error---------------')});
   }
 
   @override
   Widget build(BuildContext context) {
+    ProductDAO productDAO = Provider.of<ProductDAO>(context, listen: true);
     return StreamBuilder<QuerySnapshot>(
         stream: cartProducts,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.data != null) {
-            snapshot.data.docs.forEach((element) {});
+            amount = 0.0;
+            snapshot.data.docs.forEach((element) {
+              amount = element['price'] * element['quantity'] + amount;
+            });
           }
           return Container(
             padding: EdgeInsets.symmetric(
@@ -103,14 +118,25 @@ class _CheckoutCardState extends State<CheckoutCard> {
                       Text.rich(
                         TextSpan(text: "Total:\n", children: [
                           TextSpan(
-                            text: '0',
+                            text: '\€ ${amount.toStringAsFixed(3)}',
                             style: TextStyle(fontSize: 16, color: Colors.black),
                           ),
                         ]),
                       ),
                       SizedBox(
                         width: getProportionateScreenWidth(190),
-                        child: DefaultButton(text: "Valider", press: checkout),
+                        child: DefaultButton(
+                            text: "Valider",
+                            press: () {
+                              if (amount == 0.0) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content:
+                                            Text('votre panier est vide')));
+                              } else {
+                                checkout();
+                              }
+                            }),
                       ),
                     ],
                   ),
