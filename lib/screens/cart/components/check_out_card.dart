@@ -51,12 +51,12 @@ class _CheckoutCardState extends State<CheckoutCard> {
         ProductDAO().deletedFromCard(element.id);
       });
       Navigator.pushNamed(context, HomeScreen.routeName);
-    }).catchError(() => {print('-------error---------------')});
+    }).catchError((error) => {print('$error')});
   }
 
   @override
   Widget build(BuildContext context) {
-    ProductDAO productDAO = Provider.of<ProductDAO>(context, listen: true);
+    // ProductDAO productDAO = Provider.of<ProductDAO>(context, listen: true);
     return StreamBuilder<QuerySnapshot>(
         stream: cartProducts,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -136,7 +136,12 @@ class _CheckoutCardState extends State<CheckoutCard> {
                                         content:
                                             Text('votre panier est vide')));
                               } else {
-                                checkout();
+                                checkout().then((value) => {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              content: Text(
+                                                  'votre commande a été enregistré')))
+                                    });
                               }
                             }),
                       ),
