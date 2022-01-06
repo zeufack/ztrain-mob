@@ -11,7 +11,9 @@ import 'product_images.dart';
 
 class Body extends StatefulWidget {
   final Product product;
-  const Body({Key key, @required this.product}) : super(key: key);
+  final int quantity;
+  const Body({Key key, @required this.product, this.quantity})
+      : super(key: key);
 
   @override
   _BodyState createState() => _BodyState();
@@ -53,7 +55,8 @@ class _BodyState extends State<Body> {
                                   });
                                 },
                                 icon: const Icon(Icons.remove)),
-                            Text('$quantity'),
+                            Text(
+                                '${widget.quantity != null ? widget.quantity : quantity}'),
                             IconButton(
                                 onPressed: () {
                                   setState(() {

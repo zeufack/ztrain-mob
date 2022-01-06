@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/models/Cart.dart';
-import 'package:shop_app/models/Product.dart';
 import 'package:shop_app/models/product_dao.dart';
 import 'package:shop_app/screens/home/home_screen.dart';
 import 'package:stripe_payment/stripe_payment.dart';
@@ -136,12 +133,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
                                         content:
                                             Text('votre panier est vide')));
                               } else {
-                                checkout().then((value) => {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                              content: Text(
-                                                  'votre commande a été enregistré')))
-                                    });
+                                checkout();
                               }
                             }),
                       ),

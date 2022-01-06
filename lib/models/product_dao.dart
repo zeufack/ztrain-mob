@@ -53,14 +53,12 @@ class ProductDAO extends AbsProductDAO {
           .get()
           .then((QuerySnapshot querySnapshot) => {
                 querySnapshot.docs.forEach((doc) {
-                  print(doc.data());
                   Cart cart = Cart(
                       id: doc.id,
                       userId: doc['userId'],
                       productId: doc['productId'],
                       quantity: doc['quantity'],
                       price: doc['price']);
-                  print('this is cart  $cart');
                   carts.add(cart);
                 })
               });
@@ -176,5 +174,13 @@ class ProductDAO extends AbsProductDAO {
 
   void setAmouunt(double value) async {
     amount = value;
+  }
+
+  @override
+  getCartStream() {
+    final User user = auth.currentUser;
+    final uid = user.uid;
+
+    return cartCollection.where('userId', isEqualTo: uid).snapshots();
   }
 }
