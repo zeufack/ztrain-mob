@@ -40,12 +40,48 @@ class _CheckoutCardState extends State<CheckoutCard> {
     });
   }
 
+  Future<void> openDialog() async {
+    switch (await showDialog(
+      context: context,
+      builder: (BuildContext context) => SimpleDialog(
+        children: [
+          Container(
+              height: 260,
+              alignment: Alignment.center,
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: Column(children: [
+                  Icon(
+                    Icons.check_circle_outline,
+                    color: Colors.green,
+                    size: 100.0,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
+                    child: Text(
+                        'Votre commande a été validée. vous recevrez la livraison dans les délais'),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 30),
+                    child: DefaultButton(
+                      text: "Ok",
+                      press: () => Navigator.pop(context, true),
+                    ),
+                  )
+                ]),
+              ))
+        ],
+      ),
+    )) {
+    }
+  }
+
   Future<void> checkout() async {
     /// retrieve data from the backend
     StripePayment.paymentRequestWithCardForm(CardFormPaymentRequest())
         .then((paymentMethod) {
       carts.forEach((element) {
-        ProductDAO().deletedFromCard(element.id);
+        ProductDAO().deletedFromCard(element.id).then((value) => openDialog());
       });
       Navigator.pushNamed(context, HomeScreen.routeName);
     }).catchError((error) => {print('$error')});
