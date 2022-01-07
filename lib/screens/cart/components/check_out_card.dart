@@ -46,7 +46,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
       builder: (BuildContext context) => SimpleDialog(
         children: [
           Container(
-              height: 260,
+              height: 300,
               alignment: Alignment.center,
               child: Padding(
                 padding: EdgeInsets.all(20),
@@ -65,7 +65,8 @@ class _CheckoutCardState extends State<CheckoutCard> {
                     margin: EdgeInsets.only(top: 30),
                     child: DefaultButton(
                       text: "Ok",
-                      press: () => Navigator.pop(context, true),
+                      press: () =>
+                          Navigator.pushNamed(context, HomeScreen.routeName),
                     ),
                   )
                 ]),
@@ -81,9 +82,9 @@ class _CheckoutCardState extends State<CheckoutCard> {
     StripePayment.paymentRequestWithCardForm(CardFormPaymentRequest())
         .then((paymentMethod) {
       carts.forEach((element) {
-        ProductDAO().deletedFromCard(element.id).then((value) => openDialog());
+        ProductDAO().deletedFromCard(element.id);
       });
-      Navigator.pushNamed(context, HomeScreen.routeName);
+      openDialog();
     }).catchError((error) => {print('$error')});
   }
 
