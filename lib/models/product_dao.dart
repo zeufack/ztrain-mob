@@ -85,11 +85,6 @@ class ProductDAO extends AbsProductDAO {
   }
 
   @override
-  Future<Product> setProductFavorite() {
-    throw UnimplementedError();
-  }
-
-  @override
   Future<void> addToCartd(String productId, int quantity, double price) async {
     final User user = auth.currentUser;
     final uid = user.uid;
@@ -132,7 +127,7 @@ class ProductDAO extends AbsProductDAO {
   }
 
   @override
-  Future<void> setIsFavorite(String productId) async {
+  Future<void> setFavorite(String productId) async {
     final User user = auth.currentUser;
     final uid = user.uid;
     bool exit = false;
@@ -182,5 +177,17 @@ class ProductDAO extends AbsProductDAO {
     final uid = user.uid;
 
     return cartCollection.where('userId', isEqualTo: uid).snapshots();
+  }
+
+  @override
+  Future<Product> setProductFavorite() {
+    throw UnimplementedError();
+  }
+
+  @override
+  getFavoriteStream() {
+    final User user = auth.currentUser;
+    final uid = user.uid;
+    throw favoritesCollection.where('userId', isEqualTo: uid).snapshots();
   }
 }
