@@ -10,4 +10,5 @@ abstract class AbsProductDAO {
   Future<void> deletedFromCard(String cartId);
   Future<void> setIsFavorite(String productId);
   getCartStream();
+  getFavProdStream();
 }

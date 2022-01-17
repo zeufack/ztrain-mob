@@ -183,4 +183,12 @@ class ProductDAO extends AbsProductDAO {
 
     return cartCollection.where('userId', isEqualTo: uid).snapshots();
   }
+
+  @override
+  getFavProdStream() {
+    final User user = auth.currentUser;
+    final uid = user.uid;
+
+    return favoritesCollection.where('userId', isEqualTo: uid).snapshots();
+  }
 }
