@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/models/product_dao.dart';
-import 'package:shop_app/screens/home/home_screen.dart';
 import 'package:stripe_payment/stripe_payment.dart';
 
 import '../../../constants.dart';
@@ -63,11 +62,9 @@ class _CheckoutCardState extends State<CheckoutCard> {
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 30),
-                    child: DefaultButton(
-                      text: "Ok",
-                      press: () =>
-                          Navigator.pushNamed(context, HomeScreen.routeName),
-                    ),
+                    child: DefaultButton(text: "Ok", press: () => {}
+                        // Navigator.pushNamed(context, HomeScreen.routeName),
+                        ),
                   )
                 ]),
               ))

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/models/Product.dart';
+import 'package:shop_app/models/app_product_manager.dart';
+import 'package:shop_app/models/app_state_manager.dart';
 import 'package:shop_app/models/product_dao.dart';
 import 'package:shop_app/screens/details/details_screen.dart';
 
@@ -39,11 +41,17 @@ class _ProductCardState extends State<ProductCard> {
             child: SizedBox(
               width: getProportionateScreenWidth(widget.width),
               child: GestureDetector(
-                onTap: () => Navigator.pushNamed(
-                  context,
-                  DetailsScreen.routeName,
-                  arguments: ProductDetailsArguments(product: widget.product),
-                ),
+                onTap: () {
+                  // Navigator.pushNamed(
+                  //   context,
+                  //   DetailsScreen.routeName,
+                  //   arguments: ProductDetailsArguments(product: widget.product),
+                  // );
+                  Provider.of<AppProductManager>(context, listen: false)
+                      .selectProduct(widget.product);
+                  Provider.of<AppStateManager>(context, listen: false)
+                      .setDisplayProduct(true);
+                },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

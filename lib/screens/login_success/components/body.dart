@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shop_app/components/default_button.dart';
-import 'package:shop_app/screens/home/home_screen.dart';
+import 'package:shop_app/models/app_state_manager.dart';
 import 'package:shop_app/size_config.dart';
 
 class Body extends StatelessWidget {
@@ -28,7 +29,8 @@ class Body extends StatelessWidget {
           child: DefaultButton(
             text: "Allez au site",
             press: () {
-              Navigator.pushNamed(context, HomeScreen.routeName);
+              Provider.of<AppStateManager>(context, listen: false)
+                  .loginSucess();
             },
           ),
         ),

@@ -22,7 +22,7 @@ class Auth implements BaseAuth {
 
   @override
   Future<String> currentUser() async {
-    return (await _firebaseAuth.currentUser).uid;
+    return (_firebaseAuth.currentUser).uid;
   }
 
   @override
@@ -34,6 +34,7 @@ class Auth implements BaseAuth {
           .then((value) => value.user.uid);
       return Response(message: "connection OK", status: 200, data: userId);
     } on FirebaseAuthException catch (e) {
+      print(e.code);
       return Response(
           message: "connection faild",
           status: 400,
@@ -52,7 +53,8 @@ class Auth implements BaseAuth {
       await _firebaseAuth.signInWithCredential(credential);
       return Response(message: "connection OK", status: 200);
     } on FirebaseAuthException catch (e) {
-      return Response(message: "connection faild", status: 400);
+      return Response(
+          message: "connection faild with message: $e", status: 400);
     }
   }
 
@@ -69,7 +71,7 @@ class Auth implements BaseAuth {
     print(result.status);
     if (result.status == LoginStatus.success) {
       // Create a credential from the access token
-      print('----------------------ok --------------------${result}');
+
       final OAuthCredential credential =
           FacebookAuthProvider.credential(result.accessToken.token);
       // Once signed in, return the UserCredential

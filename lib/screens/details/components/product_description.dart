@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
-import 'package:shop_app/models/Product.dart';
-import 'package:shop_app/models/product_dao.dart';
 
-import '../../../constants.dart';
+import 'package:shop_app/models/Product.dart';
+
 import '../../../size_config.dart';
 
 class ProductDescription extends StatelessWidget {

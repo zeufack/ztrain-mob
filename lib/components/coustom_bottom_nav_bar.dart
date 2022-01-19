@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shop_app/screens/favorites/favorite_screen.dart';
-import 'package:shop_app/screens/home/home_screen.dart';
-import 'package:shop_app/screens/profile/profile_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/models/app_state_manager.dart';
+import 'package:shop_app/models/app_tab.dart';
 
 import '../constants.dart';
 import '../enums.dart';
@@ -40,19 +40,25 @@ class CustomBottomNavBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               IconButton(
+                  icon: SvgPicture.asset(
+                    "assets/icons/Shop Icon.svg",
+                    color: MenuState.home == selectedMenu
+                        ? kPrimaryColor
+                        : inActiveIconColor,
+                  ),
+                  onPressed: () =>
+                      Provider.of<AppStateManager>(context, listen: false)
+                          .goToTab(AppTab.home)),
+              IconButton(
                 icon: SvgPicture.asset(
-                  "assets/icons/Shop Icon.svg",
-                  color: MenuState.home == selectedMenu
+                  "assets/icons/Heart Icon.svg",
+                  color: MenuState.favourite == selectedMenu
                       ? kPrimaryColor
                       : inActiveIconColor,
                 ),
-                onPressed: () =>
-                    Navigator.pushNamed(context, HomeScreen.routeName),
-              ),
-              IconButton(
-                icon: SvgPicture.asset("assets/icons/Heart Icon.svg"),
                 onPressed: () {
-                  Navigator.pushNamed(context, FavoriteProduct.routeName);
+                  Provider.of<AppStateManager>(context, listen: false)
+                      .goToTab(AppTab.favorite);
                 },
               ),
               // IconButton(
@@ -67,7 +73,8 @@ class CustomBottomNavBar extends StatelessWidget {
                       : inActiveIconColor,
                 ),
                 onPressed: () =>
-                    Navigator.pushNamed(context, ProfileScreen.routeName),
+                    Provider.of<AppStateManager>(context, listen: false)
+                        .goToTab(AppTab.profile),
               ),
             ],
           )),

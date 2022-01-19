@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/components/coustom_bottom_nav_bar.dart';
 import 'package:shop_app/enums.dart';
+import 'package:shop_app/models/app_page.dart';
 import 'package:shop_app/screens/favorites/component/body.dart';
 
 class FavoriteProduct extends StatefulWidget {
   static String routeName = "/favorite";
+  static MaterialPage page() {
+    return MaterialPage(
+        name: AppPage.favoariteProductScreen,
+        key: ValueKey(AppPage.favoariteProductScreen),
+        child: FavoriteProduct());
+  }
 
   const FavoriteProduct({Key key}) : super(key: key);
 
@@ -33,6 +40,7 @@ class _FavoriteProductState extends State<FavoriteProduct> {
           )
         ],
       ),
+      automaticallyImplyLeading: false,
     );
   }
 }

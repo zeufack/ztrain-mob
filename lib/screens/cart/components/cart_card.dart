@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/models/Product.dart';
+import 'package:shop_app/models/app_product_manager.dart';
+import 'package:shop_app/models/app_state_manager.dart';
 import 'package:shop_app/models/product_dao.dart';
 import 'package:shop_app/screens/details/details_screen.dart';
 
@@ -37,15 +40,24 @@ class _CartCardState extends State<CartCard> {
 
   @override
   Widget build(BuildContext context) {
+    AppStateManager appStateManager =
+        Provider.of<AppStateManager>(context, listen: false);
+    AppProductManager appProductManager =
+        Provider.of<AppProductManager>(context, listen: false);
     return product == null
         ? Center(child: CircularProgressIndicator())
         : GestureDetector(
-            onTap: () => Navigator.pushNamed(
-                  context,
-                  DetailsScreen.routeName,
-                  arguments: ProductDetailsArguments(
-                      product: product, quantity: widget.cart.quantity),
-                ),
+            onTap: () {
+              appProductManager
+                  .setSelectedProductQuantity(widget.cart.quantity);
+              appStateManager.goToCart();
+              // Navigator.pushNamed(
+              //   context,
+              //   DetailsScreen.routeName,
+              //   arguments: ProductDetailsArguments(
+              //       product: product, quantity: widget.cart.quantity),
+              // );
+            },
             child: Row(
               children: [
                 SizedBox(

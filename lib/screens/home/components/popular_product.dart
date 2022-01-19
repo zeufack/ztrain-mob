@@ -40,7 +40,6 @@ class _PopularProductsState extends State<PopularProducts> {
   @override
   Widget build(BuildContext context) {
     // ProductDAO productDAO = Provider.of<ProductDAO>(context, listen: false);
-    List<Widget> list = new List<Widget>();
 
     return Column(
       children: [

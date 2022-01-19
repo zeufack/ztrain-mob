@@ -3,9 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:shop_app/components/custom_surfix_icon.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/form_error.dart';
-import 'package:shop_app/screens/complete_profile/complete_profile_screen.dart';
-import 'package:shop_app/screens/home/home_screen.dart';
-import 'package:shop_app/screens/login_success/login_success_screen.dart';
 import 'package:shop_app/screens/sign_in/auth.dart';
 
 import '../../../constants.dart';
@@ -71,7 +68,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 auth.createUserWithEmailAndPassord(email, password);
                 // if all are valid then go to success screen
                 setLoading();
-                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+                // Navigator.pushNamed(context, LoginSuccessScreen.routeName);
               }
             },
           ),
