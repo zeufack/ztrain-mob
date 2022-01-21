@@ -55,7 +55,12 @@ class _SignUpFormState extends State<SignUpForm> {
       child: Column(
         children: [
           buildEmailFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: getProportionateScreenHeight(15)),
+          Text(
+            '''Le mot de passe doit contenir au moins 8 cartères dont au moins une majuscule, un chiffre, un caratère spéciale''',
+            textAlign: TextAlign.justify,
+          ),
+          SizedBox(height: getProportionateScreenHeight(15)),
           buildPasswordFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildConformPassFormField(),
@@ -96,10 +101,11 @@ class _SignUpFormState extends State<SignUpForm> {
         if (value.isEmpty) {
           addError(error: kPassNullError);
           return "";
-        } else if ((password != value)) {
-          addError(error: kMatchPassError);
-          return "";
         }
+        // else if ((password != value)) {
+        //   addError(error: kMatchPassError);
+        //   return "";
+        // }
         return null;
       },
       decoration: InputDecoration(
