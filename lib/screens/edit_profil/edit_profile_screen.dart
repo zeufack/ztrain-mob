@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/models/app_page.dart';
 
 import 'components/body.dart';
 
 class EditProfileScreen extends StatefulWidget {
+  static MaterialPage page() {
+    return MaterialPage(
+        name: AppPage.editProfileScreen,
+        key: ValueKey(AppPage.editProfileScreen),
+        child: EditProfileScreen());
+  }
+
   static String routeName = "/edit_profile";
   @override
   _EditProfileScreenState createState() => _EditProfileScreenState();

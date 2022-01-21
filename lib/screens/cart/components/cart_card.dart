@@ -50,7 +50,9 @@ class _CartCardState extends State<CartCard> {
             onTap: () {
               appProductManager
                   .setSelectedProductQuantity(widget.cart.quantity);
-              appStateManager.goToCart();
+              appProductManager.selectProduct(product);
+              appStateManager.setCart(false);
+              appStateManager.setDisplayProduct(true);
               // Navigator.pushNamed(
               //   context,
               //   DetailsScreen.routeName,

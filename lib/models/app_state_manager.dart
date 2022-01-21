@@ -8,6 +8,7 @@ class AppStateManager extends ChangeNotifier {
   int _selectedTab = AppTab.home;
   bool _displayProduct = false;
   bool _displayCart = false;
+  bool _displayModifyProfil = false;
 
   bool get isLogin => _isLogin;
   int get selectTab => _selectedTab;
@@ -15,6 +16,7 @@ class AppStateManager extends ChangeNotifier {
   bool get isSplashed => _isSplashed;
   bool get displayProduct => _displayProduct;
   bool get displayCart => _displayCart;
+  bool get displayModifyProfil => _displayModifyProfil;
 
   void plashed() {
     _isSplashed = true;
@@ -48,6 +50,19 @@ class AppStateManager extends ChangeNotifier {
 
   void setCart(bool val) {
     _displayCart = val;
+    notifyListeners();
+  }
+
+  void logOut() {
+    _isSplashed = false;
+    _isLogin = false;
+    _logInSucess = false;
+    _selectedTab = AppTab.home;
+    notifyListeners();
+  }
+
+  void setModifyPlofil(val) {
+    _displayModifyProfil = val;
     notifyListeners();
   }
 }
