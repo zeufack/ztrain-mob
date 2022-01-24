@@ -16,11 +16,11 @@ class _BodyState extends State<Body> {
   int currentPage = 0;
   List<Map<String, String>> splashData = [
     {
-      "text": "Nous recherchons les meilleures offre pour vous",
+      "text": "Nous recherchons les meilleures offres pour vous",
       "image": "assets/images/splash_1.png"
     },
     {
-      "text": "Les meilleurs articles \n des meilleurs prix",
+      "text": "Les meilleurs articles \n Aux meilleurs prix",
       "image": "assets/images/splash_2.png"
     },
     {
