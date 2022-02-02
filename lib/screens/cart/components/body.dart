@@ -37,6 +37,7 @@ class _BodyState extends State<Body> {
         stream: _cartStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.data != null) {
+            carts.clear();
             snapshot.data.docs.forEach((doc) {
               Cart cart = Cart(
                   id: doc.id,
