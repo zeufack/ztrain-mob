@@ -22,7 +22,7 @@ class _BodyState extends State<Body> {
             child: Column(
               children: [
                 SizedBox(height: SizeConfig.screenHeight * 0.03),
-                Text("Modifiez vos informations", style: headingStyle),
+                Text("Mofifiez-vos informations", style: headingStyle),
                 SizedBox(height: SizeConfig.screenHeight * 0.06),
                 EditProfileForm(),
                 SizedBox(height: getProportionateScreenHeight(30)),

@@ -96,7 +96,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 10),
-                    child: Text('Votre compte a été mofifié avec succès'),
+                    child: Text('Votre compte a été modifié avec succès'),
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 30),
@@ -181,8 +181,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
         phoneNumber = value;
       }),
       decoration: InputDecoration(
-        labelText: "Phone Number",
-        hintText: phone != null ? phone : "Enter your phone number",
+        labelText: "Téléphone",
+        hintText: phone != null ? phone : "Téléphone",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -198,9 +198,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
         lastName = value;
       }),
       decoration: InputDecoration(
-        labelText: "Last Name",
-        hintText:
-            lastNameValue != null ? lastNameValue : "Enter your last name",
+        labelText: "Prénom",
+        hintText: lastNameValue != null ? lastNameValue : "Prénom",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -229,8 +228,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "First Name",
-        hintText: name != null ? name : "Enter your first name",
+        labelText: "Nom",
+        hintText: name != null ? name : "Nom",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,

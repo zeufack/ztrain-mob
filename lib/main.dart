@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/models/favorite_model.dart';
 import 'package:shop_app/models/product_dao.dart';
@@ -8,7 +7,6 @@ import 'package:shop_app/screens/sign_in/auth.dart';
 import 'package:shop_app/screens/splash/splash_screen.dart';
 import 'package:shop_app/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
-// import 'package:flutter_stripe/flutter_stripe.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
