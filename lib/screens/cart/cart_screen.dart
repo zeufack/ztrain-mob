@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'components/body.dart';
 import 'components/check_out_card.dart';
 
@@ -10,6 +11,13 @@ class CartScreen extends StatelessWidget {
       appBar: buildAppBar(context),
       body: Body(),
       bottomNavigationBar: CheckoutCard(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: SvgPicture.asset(
+          "assets/icons/Trash.svg",
+        ),
+        backgroundColor: Colors.white,
+      ),
     );
   }
 

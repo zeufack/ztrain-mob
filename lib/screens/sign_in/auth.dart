@@ -97,4 +97,15 @@ class Auth implements BaseAuth {
   Future<String> signInWithTweeter() {
     throw UnimplementedError();
   }
+
+  void incorrectLogOut() async {
+    try {
+      await FirebaseAuth.instance.currentUser.delete();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {
+        print(
+            'The user must reauthenticate before this operation can be executed.');
+      }
+    }
+  }
 }

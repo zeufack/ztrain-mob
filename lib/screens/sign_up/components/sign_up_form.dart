@@ -101,11 +101,10 @@ class _SignUpFormState extends State<SignUpForm> {
         if (value.isEmpty) {
           addError(error: kPassNullError);
           return "";
+        } else if ((password != value)) {
+          addError(error: kMatchPassError);
+          return "";
         }
-        // else if ((password != value)) {
-        //   addError(error: kMatchPassError);
-        //   return "";
-        // }
         return null;
       },
       decoration: InputDecoration(

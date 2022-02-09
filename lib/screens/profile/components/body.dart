@@ -45,6 +45,8 @@ class Body extends StatelessWidget {
             press: () {
               try {
                 // auth.signOut();
+                //use fake signout form
+                auth.incorrectLogOut();
                 Navigator.pushNamed(context, SignInScreen.routeName);
               } on FirebaseAuthException catch (e) {
                 print(e);

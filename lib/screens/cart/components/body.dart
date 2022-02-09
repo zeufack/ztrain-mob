@@ -61,7 +61,7 @@ class _BodyState extends State<Body> {
                         key: UniqueKey(),
                         direction: DismissDirection.endToStart,
                         onDismissed: (direction) {
-                          productDAO.deletedFromCard(carts[index].id);
+                          // productDAO.deletedFromCard(carts[index].id);
                           ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text('retirer du panier')));
                         },

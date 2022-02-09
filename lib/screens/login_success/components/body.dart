@@ -8,7 +8,7 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: SizeConfig.screenHeight * 0.04),
+        SizedBox(height: SizeConfig.screenHeight * 0.02),
         Image.asset(
           "assets/images/success.png",
           height: SizeConfig.screenHeight * 0.4, //40%
