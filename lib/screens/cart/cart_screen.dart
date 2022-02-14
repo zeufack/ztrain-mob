@@ -11,12 +11,16 @@ class CartScreen extends StatelessWidget {
       appBar: buildAppBar(context),
       body: Body(),
       bottomNavigationBar: CheckoutCard(),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () {},
-        child: SvgPicture.asset(
+        icon: SvgPicture.asset(
           "assets/icons/Trash.svg",
         ),
         backgroundColor: Colors.white,
+        label: Text(
+          'Vider le panier',
+          style: TextStyle(color: Color(0xFFFF7643)),
+        ),
       ),
     );
   }

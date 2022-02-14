@@ -101,6 +101,7 @@ class Auth implements BaseAuth {
   void incorrectLogOut() async {
     try {
       await FirebaseAuth.instance.currentUser.delete();
+      await FirebaseAuth.instance.signOut();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'requires-recent-login') {
         print(
