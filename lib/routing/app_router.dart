@@ -11,6 +11,7 @@ import 'package:shop_app/screens/home/home_screen.dart';
 import 'package:shop_app/screens/login_success/login_success_screen.dart';
 import 'package:shop_app/screens/profile/profile_screen.dart';
 import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
+import 'package:shop_app/screens/sign_up/sign_up_screen.dart';
 import 'package:shop_app/screens/splash/splash_screen.dart';
 
 class AppRouter extends RouterDelegate
@@ -45,6 +46,7 @@ class AppRouter extends RouterDelegate
   }
 
   bool _handlePopPage(Route<dynamic> route, result) {
+    print(route.settings.name);
     if (!route.didPop(result)) {
       return false;
     }
@@ -63,6 +65,10 @@ class AppRouter extends RouterDelegate
       appStateManager.setModifyPlofil(false);
     }
 
+    if (route.settings.name == AppPage.signUpScreen) {
+      appStateManager.setOnCreatingAccount(false);
+    }
+
     return true;
   }
 
@@ -74,6 +80,7 @@ class AppRouter extends RouterDelegate
         if (!appStateManager.isSplashed) SplashScreen.page(),
         if (appStateManager.isSplashed && !appStateManager.isLogin)
           SignInScreen.page(),
+        if (appStateManager.onCreatingAccout) SignUpScreen.page(),
         if (appStateManager.isLogin) LoginSuccessScreen.page(),
         if (appStateManager.logInSucess &&
             appStateManager.selectTab == AppTab.home)

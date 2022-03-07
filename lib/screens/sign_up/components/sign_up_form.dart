@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shop_app/components/custom_surfix_icon.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/form_error.dart';
+import 'package:shop_app/models/app_state_manager.dart';
 import 'package:shop_app/screens/sign_in/auth.dart';
 
 import '../../../constants.dart';
@@ -68,7 +69,9 @@ class _SignUpFormState extends State<SignUpForm> {
                 auth.createUserWithEmailAndPassord(email, password);
                 // if all are valid then go to success screen
                 setLoading();
-                // Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+                Provider.of<AppStateManager>(context, listen: false).login();
+              } else {
+                setLoading();
               }
             },
           ),
@@ -100,7 +103,7 @@ class _SignUpFormState extends State<SignUpForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Confirmez le mot de passe",
+        labelText: "Confirmer le mot de passe",
         hintText: "entrer le même mot de passe",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
@@ -141,7 +144,7 @@ class _SignUpFormState extends State<SignUpForm> {
       },
       decoration: InputDecoration(
         labelText: "Mot de passe",
-        hintText: "Entre le mot de passe",
+        hintText: "Entrer le mot de passe",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,

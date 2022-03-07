@@ -97,7 +97,7 @@ class _SignFormState extends State<SignForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
-            text: "Continue",
+            text: "Continuer",
             isLoading: isLoading,
             press: () async {
               setLoading();
@@ -111,10 +111,11 @@ class _SignFormState extends State<SignForm> {
                   Provider.of<AppStateManager>(context, listen: false).login();
                 } else {
                   updateError();
-                  // setLoading();
+                  setLoading();
                   Alert(message: response.error).show();
                 }
               }
+              setLoading();
             },
           ),
         ],
@@ -146,7 +147,7 @@ class _SignFormState extends State<SignForm> {
       },
       decoration: InputDecoration(
         labelText: "Mot de passe",
-        hintText: "Entrez votre mot de passe",
+        hintText: "Entrer votre mot de passe",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,

@@ -10,9 +10,12 @@ class Body extends StatelessWidget {
     return Column(
       children: [
         SizedBox(height: SizeConfig.screenHeight * 0.04),
-        Image.asset(
-          "assets/images/success.png",
-          height: SizeConfig.screenHeight * 0.4, //40%
+        Center(
+          child: Image.asset(
+            "assets/images/success.png",
+            fit: BoxFit.fill,
+            // height: SizeConfig.screenHeight * 0.4, //40%
+          ),
         ),
         SizedBox(height: SizeConfig.screenHeight * 0.08),
         Text(
@@ -27,7 +30,7 @@ class Body extends StatelessWidget {
         SizedBox(
           width: SizeConfig.screenWidth * 0.6,
           child: DefaultButton(
-            text: "Allez au site",
+            text: "Aller au site",
             press: () {
               Provider.of<AppStateManager>(context, listen: false)
                   .loginSucess();
