@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/models/app_state_manager.dart';
 import 'package:shop_app/models/product_dao.dart';
 import 'package:shop_app/screens/cart/cart_screen.dart';
 import 'package:shop_app/screens/home/components/icon_btn_with_counter.dart';
@@ -50,12 +52,14 @@ class CustomAppBar extends PreferredSize {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
                     child: IconBtnWithCounter(
-                      svgSrc: "assets/icons/Cart Icon.svg",
-                      numOfitem:
-                          snapshot.data == null ? 0 : snapshot.data.docs.length,
-                      press: () =>
-                          Navigator.pushNamed(context, CartScreen.routeName),
-                    ),
+                        svgSrc: "assets/icons/Cart Icon.svg",
+                        numOfitem: snapshot.data == null
+                            ? 0
+                            : snapshot.data.docs.length,
+                        press: () {
+                          Provider.of<AppStateManager>(context, listen: false)
+                              .goToCart();
+                        }),
                   )
                 ],
               ),

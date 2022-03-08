@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shop_app/components/no_account_text.dart';
 import 'package:shop_app/components/socal_card.dart';
 import 'package:shop_app/helper/response.dart';
+import 'package:shop_app/models/app_state_manager.dart';
 import 'package:shop_app/screens/sign_in/auth.dart';
 import '../../../size_config.dart';
 import 'sign_form.dart';
@@ -30,7 +31,10 @@ class Body extends StatelessWidget {
                       icon: "assets/icons/google-icon.svg",
                       press: () async {
                         Response resp = await auth.signInWithGoogle();
-                        print(resp);
+                        if (resp.status == 200) {
+                          Provider.of<AppStateManager>(context, listen: false)
+                              .login();
+                        }
                       },
                     ),
                     SocalCard(

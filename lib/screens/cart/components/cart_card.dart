@@ -5,7 +5,6 @@ import 'package:shop_app/models/Product.dart';
 import 'package:shop_app/models/app_product_manager.dart';
 import 'package:shop_app/models/app_state_manager.dart';
 import 'package:shop_app/models/product_dao.dart';
-import 'package:shop_app/screens/details/details_screen.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -80,10 +79,13 @@ class _CartCardState extends State<CartCard> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      product?.title,
-                      style: TextStyle(color: Colors.black, fontSize: 16),
-                      maxLines: 2,
+                    SizedBox(
+                      width: 250,
+                      child: Text(
+                        product?.title,
+                        style: TextStyle(color: Colors.black, fontSize: 16),
+                        maxLines: 3,
+                      ),
                     ),
                     SizedBox(height: 10),
                     Text.rich(
@@ -101,6 +103,7 @@ class _CartCardState extends State<CartCard> {
                   ],
                 )
               ],
-            ));
+            ),
+          );
   }
 }

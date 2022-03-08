@@ -162,7 +162,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
       }),
       decoration: InputDecoration(
         labelText: "Adresse",
-        hintText: addressValue != null ? addressValue : "Enter your address",
+        hintText: addressValue != null ? addressValue : "Entrer l'adresse",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -181,8 +181,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
         phoneNumber = value;
       }),
       decoration: InputDecoration(
-        labelText: "Phone Number",
-        hintText: phone != null ? phone : "Enter your phone number",
+        labelText: "Numéro",
+        hintText: phone != null ? phone : "Enter le numéro de téléphone",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -198,9 +198,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
         lastName = value;
       }),
       decoration: InputDecoration(
-        labelText: "Last Name",
-        hintText:
-            lastNameValue != null ? lastNameValue : "Enter your last name",
+        labelText: "Prénom",
+        hintText: lastNameValue != null ? lastNameValue : "Entrer le prénom",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -229,8 +228,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "First Name",
-        hintText: name != null ? name : "Enter your first name",
+        labelText: "Noms",
+        hintText: name != null ? name : "Entrer le nom",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,

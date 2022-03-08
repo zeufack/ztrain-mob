@@ -26,21 +26,21 @@ class Body extends StatelessWidget {
               press: () {
                 appStateManager.setModifyPlofil(true);
               }),
-          ProfileMenu(
-            text: "Notifications",
-            icon: "assets/icons/Bell.svg",
-            press: () {},
-          ),
-          ProfileMenu(
-            text: "Configurations",
-            icon: "assets/icons/Settings.svg",
-            press: () {},
-          ),
-          ProfileMenu(
-            text: "Aide",
-            icon: "assets/icons/Question mark.svg",
-            press: () {},
-          ),
+          // ProfileMenu(
+          //   text: "Notifications",
+          //   icon: "assets/icons/Bell.svg",
+          //   press: () {},
+          // ),
+          // ProfileMenu(
+          //   text: "Configurations",
+          //   icon: "assets/icons/Settings.svg",
+          //   press: () {},
+          // ),
+          // ProfileMenu(
+          //   text: "Aide",
+          //   icon: "assets/icons/Question mark.svg",
+          //   press: () {},
+          // ),
           ProfileMenu(
             text: "Déconnexion",
             icon: "assets/icons/Log out.svg",

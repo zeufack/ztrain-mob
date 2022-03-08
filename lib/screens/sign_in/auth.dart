@@ -51,6 +51,7 @@ class Auth implements BaseAuth {
 
     try {
       await _firebaseAuth.signInWithCredential(credential);
+      print('connexion ok');
       return Response(message: "connection OK", status: 200);
     } on FirebaseAuthException catch (e) {
       return Response(

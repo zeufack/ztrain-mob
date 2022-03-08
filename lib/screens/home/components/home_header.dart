@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/models/app_state_manager.dart';
 import 'package:shop_app/models/product_dao.dart';
-import 'package:shop_app/screens/cart/cart_screen.dart';
+// import 'package:shop_app/screens/cart/cart_screen.dart';
 
 import '../../../size_config.dart';
 import 'icon_btn_with_counter.dart';
@@ -43,11 +43,11 @@ class _HomeHeaderState extends State<HomeHeader> {
                   // Navigator.pushNamed(context, CartScreen.routeName);
                 },
               ),
-              IconBtnWithCounter(
-                svgSrc: "assets/icons/Bell.svg",
-                numOfitem: 3,
-                press: () {},
-              ),
+              // IconBtnWithCounter(
+              //   svgSrc: "assets/icons/Bell.svg",
+              //   numOfitem: 3,
+              //   press: () {},
+              // ),
             ],
           ),
         );

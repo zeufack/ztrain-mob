@@ -6,7 +6,7 @@ import 'package:shop_app/models/abstract_product_dao.dart';
 
 class ProductDAO extends AbsProductDAO {
   final CollectionReference productCollection =
-      FirebaseFirestore.instance.collection('Products');
+      FirebaseFirestore.instance.collection('productList');
   final CollectionReference cartCollection =
       FirebaseFirestore.instance.collection('Carts');
   final CollectionReference favoritesCollection =
@@ -189,6 +189,8 @@ class ProductDAO extends AbsProductDAO {
     final User user = auth.currentUser;
     final uid = user.uid;
 
-    return favoritesCollection.where('userId', isEqualTo: uid).snapshots();
+    dynamic data =
+        favoritesCollection.where('userId', isEqualTo: uid).snapshots();
+    return data;
   }
 }

@@ -6,7 +6,6 @@ import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/models/product_dao.dart';
 import 'package:stripe_payment/stripe_payment.dart';
 
-import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class CheckoutCard extends StatefulWidget {
@@ -135,13 +134,6 @@ class _CheckoutCardState extends State<CheckoutCard> {
                         child: SvgPicture.asset("assets/icons/receipt.svg"),
                       ),
                       Spacer(),
-                      Text("Ajouter un bon d'achat"),
-                      const SizedBox(width: 10),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        size: 12,
-                        color: kTextColor,
-                      )
                     ],
                   ),
                   SizedBox(height: getProportionateScreenHeight(20)),
@@ -151,7 +143,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
                       Text.rich(
                         TextSpan(text: "Total:\n", children: [
                           TextSpan(
-                            text: '\€ ${amount.toStringAsFixed(3)}',
+                            text: '\€ ${amount.toStringAsFixed(2)}',
                             style: TextStyle(fontSize: 16, color: Colors.black),
                           ),
                         ]),
