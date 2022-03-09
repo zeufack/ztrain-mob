@@ -37,21 +37,21 @@ class Body extends StatelessWidget {
                         }
                       },
                     ),
-                    SocalCard(
-                      icon: "assets/icons/facebook-2.svg",
-                      press: () async {
-                        var resp = await auth.signInWithFacebook();
-                        if (resp.status == 200) {
-                          // Navigator.pushNamed(
-                          //     context, LoginSuccessScreen.routeName);
-                        }
-                        print(resp);
-                      },
-                    ),
-                    SocalCard(
-                      icon: "assets/icons/twitter.svg",
-                      press: () {},
-                    ),
+                    // SocalCard(
+                    //   icon: "assets/icons/facebook-2.svg",
+                    //   press: () async {
+                    //     var resp = await auth.signInWithFacebook();
+                    //     if (resp.status == 200) {
+                    //       // Navigator.pushNamed(
+                    //       //     context, LoginSuccessScreen.routeName);
+                    //     }
+                    //     print(resp);
+                    //   },
+                    // ),
+                    // SocalCard(
+                    //   icon: "assets/icons/twitter.svg",
+                    //   press: () {},
+                    // ),
                   ],
                 ),
                 SizedBox(height: getProportionateScreenHeight(20)),
