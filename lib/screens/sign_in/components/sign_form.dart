@@ -110,8 +110,8 @@ class _SignFormState extends State<SignForm> {
                   setLoading();
                   Provider.of<AppStateManager>(context, listen: false).login();
                 } else {
+                  // setLoading();
                   updateError();
-                  setLoading();
                   Alert(message: response.error).show();
                 }
               }

@@ -32,9 +32,11 @@ class _CartCardState extends State<CartCard> {
   void getData() async {
     dynamic receiveProduct =
         await ProductDAO().getProductById(widget.cart.productId);
-    setState(() {
-      product = receiveProduct;
-    });
+    if (mounted) {
+      setState(() {
+        product = receiveProduct;
+      });
+    }
   }
 
   @override

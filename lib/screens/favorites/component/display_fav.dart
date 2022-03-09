@@ -25,9 +25,11 @@ class _DisplayFavState extends State<DisplayFav> {
   void getData() async {
     dynamic receiveProduct =
         await ProductDAO().getProductById(widget.favoriteProduct.productId);
-    setState(() {
-      product = receiveProduct;
-    });
+    if (mounted) {
+      setState(() {
+        product = receiveProduct;
+      });
+    }
   }
 
   @override
@@ -56,10 +58,13 @@ class _DisplayFavState extends State<DisplayFav> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      product?.title,
-                      style: TextStyle(color: Colors.black, fontSize: 16),
-                      maxLines: 2,
+                    SizedBox(
+                      width: 245,
+                      child: Text(
+                        product?.title,
+                        style: TextStyle(color: Colors.black, fontSize: 16),
+                        maxLines: 3,
+                      ),
                     ),
                     SizedBox(height: 10),
                     Text.rich(
