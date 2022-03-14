@@ -64,6 +64,9 @@ class _EditProfileFormState extends State<EditProfileForm> {
   @override
   void dispose() {
     firstNameController.dispose();
+    addressController.dispose();
+    lastNameController.dispose();
+    phoneNumberController.dispose();
     super.dispose();
   }
 
@@ -129,7 +132,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
-            text: "Mofifier",
+            text: "Modifier",
             isLoading: isLoading,
             press: () async {
               setLoading();
@@ -146,6 +149,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
                   setLoading();
                 }
               }
+              setLoading();
             },
           ),
         ],
@@ -160,6 +164,16 @@ class _EditProfileFormState extends State<EditProfileForm> {
       onChanged: (value) => setState(() {
         address = value;
       }),
+      validator: (value) {
+        if (value.isEmpty) {
+          addError(error: " le champ adresse est vide");
+          return "";
+        } else if (!wordValidatorRegExp.hasMatch(value)) {
+          addError(error: "Certaines valeurs ne sont pas valides");
+          return "";
+        }
+        return null;
+      },
       decoration: InputDecoration(
         labelText: "Adresse",
         hintText: addressValue != null ? addressValue : "Entrer l'adresse",
@@ -188,6 +202,16 @@ class _EditProfileFormState extends State<EditProfileForm> {
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Phone.svg"),
       ),
+      validator: (value) {
+        if (value.isEmpty) {
+          addError(error: "entré un numéro de téléphone");
+          return "";
+        } else if (!wordValidatorRegExp.hasMatch(value)) {
+          addError(error: "Certaines valeurs ne sont pas valides");
+          return "";
+        }
+        return null;
+      },
     );
   }
 
@@ -197,6 +221,16 @@ class _EditProfileFormState extends State<EditProfileForm> {
       onChanged: (value) => setState(() {
         lastName = value;
       }),
+      validator: (value) {
+        if (value.isEmpty) {
+          addError(error: "le champ prénom est vide");
+          return "";
+        } else if (!wordValidatorRegExp.hasMatch(value)) {
+          addError(error: "Certaines valeurs ne sont pas valides");
+          return "";
+        }
+        return null;
+      },
       decoration: InputDecoration(
         labelText: "Prénom",
         hintText: lastNameValue != null ? lastNameValue : "Entrer le prénom",
@@ -223,6 +257,9 @@ class _EditProfileFormState extends State<EditProfileForm> {
       validator: (value) {
         if (value.isEmpty) {
           addError(error: kNamelNullError);
+          return "";
+        } else if (!wordValidatorRegExp.hasMatch(value)) {
+          addError(error: "Certaines valeurs ne sont pas valides");
           return "";
         }
         return null;

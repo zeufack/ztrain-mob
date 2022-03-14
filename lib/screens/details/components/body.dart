@@ -55,8 +55,7 @@ class _BodyState extends State<Body> {
                                   });
                                 },
                                 icon: const Icon(Icons.remove)),
-                            Text(
-                                '${widget.quantity != null ? widget.quantity : quantity}'),
+                            Text('$quantity'),
                             IconButton(
                                 onPressed: () {
                                   setState(() {
@@ -88,8 +87,17 @@ class _BodyState extends State<Body> {
                                       content: Text(
                                           'Indiquer le nombre d\'article')));
                             } else {
-                              productDAO.addToCartd(widget.product.id, quantity,
-                                  widget.product.price);
+                              print(widget.quantity);
+                              if (widget.quantity == null) {
+                                productDAO.addToCartd(widget.product.id,
+                                    quantity, widget.product.price);
+                              } else {
+                                productDAO.addToCartd(
+                                    widget.product.id,
+                                    quantity + widget.quantity,
+                                    widget.product.price);
+                              }
+
                               ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                       content: Text('Panier mise à jours')));

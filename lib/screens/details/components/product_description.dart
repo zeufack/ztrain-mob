@@ -55,7 +55,7 @@ class ProductDescription extends StatelessWidget {
           ),
           child: Text(
             product.description,
-            maxLines: 3,
+            // maxLines: 3,
           ),
         ),
         // Padding(
