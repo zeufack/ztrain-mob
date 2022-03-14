@@ -31,6 +31,7 @@ class Body extends StatelessWidget {
                       icon: "assets/icons/google-icon.svg",
                       press: () async {
                         Response resp = await auth.signInWithGoogle();
+                        print('test ${resp.status}');
                         if (resp.status == 200) {
                           Provider.of<AppStateManager>(context, listen: false)
                               .login();

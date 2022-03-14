@@ -85,7 +85,7 @@ class _BodyState extends State<Body> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                       content: Text(
-                                          'Indiquer le nombre d\'article')));
+                                          'Indiquez le nombre d\'article')));
                             } else {
                               print(widget.quantity);
                               if (widget.quantity == null) {
@@ -100,7 +100,7 @@ class _BodyState extends State<Body> {
 
                               ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
-                                      content: Text('Panier mise à jours')));
+                                      content: Text('Panier mis à jours')));
                             }
                           },
                         ),

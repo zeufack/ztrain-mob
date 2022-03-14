@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/models/app_state_manager.dart';
 import 'package:shop_app/models/product_dao.dart';
-import 'package:shop_app/screens/cart/cart_screen.dart';
 import 'package:shop_app/screens/home/components/icon_btn_with_counter.dart';
 
 import '../../../size_config.dart';

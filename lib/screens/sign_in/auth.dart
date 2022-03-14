@@ -54,6 +54,7 @@ class Auth implements BaseAuth {
       print('connexion ok');
       return Response(message: "connection OK", status: 200);
     } on FirebaseAuthException catch (e) {
+      // print("erreur de connection : ${e.message}");
       return Response(
           message: "connection faild with message: $e", status: 400);
     }
