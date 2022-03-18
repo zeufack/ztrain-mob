@@ -12,12 +12,19 @@ class Auth implements BaseAuth {
       _firebaseAuth.authStateChanges().map((User user) => user?.uid);
 
   @override
-  Future<String> createUserWithEmailAndPassord(
+  Future<Response> createUserWithEmailAndPassord(
       String email, String password) async {
-    return (await _firebaseAuth.createUserWithEmailAndPassword(
-            email: email, password: password))
-        .user
-        .uid;
+    try {
+      String userId = (await _firebaseAuth.createUserWithEmailAndPassword(
+              email: email, password: password))
+          .user
+          .uid;
+      return Response(message: "connection OK", status: 200, data: userId);
+    } on FirebaseAuthException catch (e) {
+      print('error message is  ${e.message}');
+      return Response(
+          message: "inscriptio faild", status: 400, error: e.message);
+    }
   }
 
   @override
@@ -36,9 +43,7 @@ class Auth implements BaseAuth {
     } on FirebaseAuthException catch (e) {
       print(e.code);
       return Response(
-          message: "connection faild",
-          status: 400,
-          error: "email ou mot de passe incorrect");
+          message: "connection faild", status: 400, error: e.message);
     }
   }
 

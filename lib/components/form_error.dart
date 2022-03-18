@@ -28,9 +28,14 @@ class FormError extends StatelessWidget {
           width: getProportionateScreenWidth(14),
         ),
         SizedBox(
-          width: getProportionateScreenWidth(10),
+          width: getProportionateScreenWidth(20),
         ),
-        Text(error),
+        SizedBox(
+            width: 300,
+            child: Text(
+              error,
+              style: TextStyle(color: Colors.red),
+            )),
       ],
     );
   }
