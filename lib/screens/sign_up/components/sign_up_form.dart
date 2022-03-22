@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shop_app/components/custom_surfix_icon.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/form_error.dart';
+import 'package:shop_app/helper/response.dart';
 import 'package:shop_app/screens/login_success/login_success_screen.dart';
 import 'package:shop_app/screens/sign_in/auth.dart';
 
@@ -67,14 +68,22 @@ class _SignUpFormState extends State<SignUpForm> {
           DefaultButton(
             text: "Continuer",
             isLoading: isLoading,
-            press: () {
+            press: () async {
               setLoading();
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
-                auth.createUserWithEmailAndPassord(email, password);
-                // if all are valid then go to success screen
+                Response res =
+                    await auth.createUserWithEmailAndPassord(email, password);
+                if (res.status == 200) {
+                  setLoading();
+                  Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+                } else {
+                  setLoading();
+                  // print(res.error);
+                  addError(error: res.error);
+                }
+              } else {
                 setLoading();
-                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
               }
             },
           ),
