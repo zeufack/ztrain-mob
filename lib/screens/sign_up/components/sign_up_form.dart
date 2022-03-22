@@ -71,10 +71,18 @@ class _SignUpFormState extends State<SignUpForm> {
               setLoading();
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
-                auth.createUserWithEmailAndPassord(email, password);
-                // if all are valid then go to success screen
+                Response res =
+                    await auth.createUserWithEmailAndPassord(email, password);
+                if (res.status == 200) {
+                  setLoading();
+                  Provider.of<AppStateManager>(context, listen: false).login();
+                } else {
+                  setLoading();
+                  // print(res.error);
+                  addError(error: res.error);
+                }
+              } else {
                 setLoading();
-                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
               }
             },
           ),
