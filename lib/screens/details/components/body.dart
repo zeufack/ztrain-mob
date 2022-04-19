@@ -55,8 +55,7 @@ class _BodyState extends State<Body> {
                                   });
                                 },
                                 icon: const Icon(Icons.remove)),
-                            Text(
-                                '${widget.quantity != null ? widget.quantity : quantity}'),
+                            Text('$quantity'),
                             IconButton(
                                 onPressed: () {
                                   setState(() {
