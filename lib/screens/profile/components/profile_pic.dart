@@ -13,7 +13,7 @@ class ProfilePic extends StatelessWidget {
       width: 115,
       child: Stack(
         fit: StackFit.expand,
-        overflow: Overflow.visible,
+        clipBehavior: Clip.none,
         children: [
           CircleAvatar(
             backgroundImage: AssetImage("assets/images/avatar.png"),
@@ -23,18 +23,29 @@ class ProfilePic extends StatelessWidget {
             right: -16,
             bottom: 0,
             child: SizedBox(
-              height: 46,
-              width: 46,
-              child: FlatButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                  side: BorderSide(color: Colors.white),
+                height: 46,
+                width: 46,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Color(0xFFF5F6F9),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                      side: BorderSide(color: Colors.white),
+                    ),
+                  ),
+                  onPressed: () {},
+                  child: SvgPicture.asset("assets/icons/Camera Icon.svg"),
+                )
+                // FlatButton(
+                // shape: RoundedRectangleBorder(
+                //   borderRadius: BorderRadius.circular(50),
+                //   side: BorderSide(color: Colors.white),
+                // ),
+                //   color: Color(0xFFF5F6F9),
+                //   onPressed: () {},
+                //   child: SvgPicture.asset("assets/icons/Camera Icon.svg"),
+                // ),
                 ),
-                color: Color(0xFFF5F6F9),
-                onPressed: () {},
-                child: SvgPicture.asset("assets/icons/Camera Icon.svg"),
-              ),
-            ),
           )
         ],
       ),

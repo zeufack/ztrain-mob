@@ -30,21 +30,35 @@ class CustomAppBar extends PreferredSize {
               child: Row(
                 children: [
                   SizedBox(
-                    height: getProportionateScreenWidth(40),
-                    width: getProportionateScreenWidth(40),
-                    child: FlatButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(60),
+                      height: getProportionateScreenWidth(40),
+                      width: getProportionateScreenWidth(40),
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(60),
+                          ),
+                          backgroundColor: Colors.white,
+                          padding: EdgeInsets.zero,
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                        child: SvgPicture.asset(
+                          "assets/icons/Back ICon.svg",
+                          height: 15,
+                        ),
+                      )
+                      // FlatButton(
+                      // shape: RoundedRectangleBorder(
+                      //   borderRadius: BorderRadius.circular(60),
+                      // ),
+                      // color: Colors.white,
+                      // padding: EdgeInsets.zero,
+                      //   onPressed: () => Navigator.pop(context),
+                      // child: SvgPicture.asset(
+                      //   "assets/icons/Back ICon.svg",
+                      //   height: 15,
+                      // ),
+                      // ),
                       ),
-                      color: Colors.white,
-                      padding: EdgeInsets.zero,
-                      onPressed: () => Navigator.pop(context),
-                      child: SvgPicture.asset(
-                        "assets/icons/Back ICon.svg",
-                        height: 15,
-                      ),
-                    ),
-                  ),
                   Spacer(),
                   Container(
                     padding:

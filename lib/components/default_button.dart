@@ -13,27 +13,44 @@ class DefaultButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Loading = SpinKitFadingCircle(
+    final loading = SpinKitFadingCircle(
       color: Colors.white,
       size: 40.0,
     );
     return SizedBox(
-      width: double.infinity,
-      height: getProportionateScreenHeight(56),
-      child: FlatButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        color: kPrimaryColor,
-        onPressed: press,
-        child: !isLoading
-            ? Text(
-                text,
-                style: TextStyle(
-                  fontSize: getProportionateScreenWidth(18),
-                  color: Colors.white,
-                ),
-              )
-            : Loading,
-      ),
-    );
+        width: double.infinity,
+        height: getProportionateScreenHeight(56),
+        child: TextButton(
+          style: TextButton.styleFrom(
+              primary: kPrimaryColor,
+              backgroundColor: kPrimaryColor,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20))),
+          onPressed: press,
+          child: !isLoading
+              ? Text(
+                  text,
+                  style: TextStyle(
+                    fontSize: getProportionateScreenWidth(18),
+                    color: Colors.white,
+                  ),
+                )
+              : loading,
+        )
+        //     FlatButton(
+        //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        //   color: kPrimaryColor,
+        //   onPressed: press,
+        //   child: !isLoading
+        //       ? Text(
+        //           text,
+        //           style: TextStyle(
+        //             fontSize: getProportionateScreenWidth(18),
+        //             color: Colors.white,
+        //           ),
+        //         )
+        //       : loading,
+        // ),
+        );
   }
 }

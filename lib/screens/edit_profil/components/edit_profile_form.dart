@@ -70,11 +70,11 @@ class _EditProfileFormState extends State<EditProfileForm> {
   Future<void> loadProfil(userId) async {
     Profil resp = await getUser(userId);
     setState(() {
-      firstName = resp.first_name;
-      lastName = resp.last_name;
+      firstName = resp.firstName;
+      lastName = resp.lastName;
       phoneNumber = resp.phoneNumber;
       address = resp.address;
-      firstNameController.text = resp.first_name;
+      firstNameController.text = resp.firstName;
     });
   }
 
@@ -162,7 +162,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
       }),
       decoration: InputDecoration(
         labelText: "Adresse",
-        hintText: addressValue != null ? addressValue : "Enter your address",
+        hintText: addressValue != null ? addressValue : "Entrez votre adresse",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
