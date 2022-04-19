@@ -129,7 +129,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
-            text: "Modifier",
+            text: "Mofifier",
             isLoading: isLoading,
             press: () async {
               setLoading();
@@ -162,7 +162,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
       }),
       decoration: InputDecoration(
         labelText: "Adresse",
-        hintText: addressValue != null ? addressValue : "Enter your address",
+        hintText: addressValue != null ? addressValue : "Entrez votre adresse",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
