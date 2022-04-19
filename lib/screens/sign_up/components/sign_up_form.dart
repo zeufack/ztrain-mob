@@ -56,7 +56,7 @@ class _SignUpFormState extends State<SignUpForm> {
           buildEmailFormField(),
           SizedBox(height: getProportionateScreenHeight(15)),
           Text(
-            '''Le mot de passe doit contenir au moins 8 cartères dont au moins une majuscule, un chiffre, un caratère spéciale''',
+            '''Le mot de passe doit contenir au moins 8 cartères dont au moins une majuscule, un chiffre et un caratère spéciale''',
             textAlign: TextAlign.justify,
           ),
           SizedBox(height: getProportionateScreenHeight(15)),
@@ -156,7 +156,7 @@ class _SignUpFormState extends State<SignUpForm> {
       },
       decoration: InputDecoration(
         labelText: "Mot de passe",
-        hintText: "Entre le mot de passe",
+        hintText: "Entrer le mot de passe",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
