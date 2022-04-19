@@ -13,7 +13,7 @@ class DefaultButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Loading = SpinKitFadingCircle(
+    final loading = SpinKitFadingCircle(
       color: Colors.white,
       size: 40.0,
     );
@@ -32,7 +32,7 @@ class DefaultButton extends StatelessWidget {
                   color: Colors.white,
                 ),
               )
-            : Loading,
+            : loading,
       ),
     );
   }

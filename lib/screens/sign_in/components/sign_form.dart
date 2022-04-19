@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/components/custom_surfix_icon.dart';
@@ -89,7 +88,7 @@ class _SignFormState extends State<SignForm> {
                 onTap: () => Navigator.pushNamed(
                     context, ForgotPasswordScreen.routeName),
                 child: Text(
-                  "Mot de passe oublier",
+                  "Mot de passe oublié",
                   style: TextStyle(decoration: TextDecoration.underline),
                 ),
               )

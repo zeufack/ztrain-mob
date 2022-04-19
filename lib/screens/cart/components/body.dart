@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
 import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/models/product_dao.dart';
 import 'package:shop_app/screens/cart/components/empty_cart.dart';
@@ -32,7 +31,7 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    ProductDAO productDAO = Provider.of<ProductDAO>(context, listen: true);
+    // ProductDAO productDAO = Provider.of<ProductDAO>(context, listen: true);
     return StreamBuilder<QuerySnapshot>(
         stream: _cartStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {

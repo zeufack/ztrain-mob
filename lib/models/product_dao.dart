@@ -38,7 +38,7 @@ class ProductDAO extends AbsProductDAO {
       // print(productList);
       return productList;
     } catch (e) {
-      print(e);
+      return [];
     }
   }
 
@@ -78,10 +78,10 @@ class ProductDAO extends AbsProductDAO {
                 price: value['price'],
                 description: value['description'])
           });
-      return testProduct;
     } catch (e) {
       print(e);
     }
+    return testProduct;
   }
 
   @override
