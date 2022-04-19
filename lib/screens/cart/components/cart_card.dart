@@ -40,12 +40,14 @@ class _CartCardState extends State<CartCard> {
     return product == null
         ? Center(child: CircularProgressIndicator())
         : GestureDetector(
-            onTap: () => Navigator.pushNamed(
-                  context,
-                  DetailsScreen.routeName,
-                  arguments: ProductDetailsArguments(
-                      product: product, quantity: widget.cart.quantity),
-                ),
+            onTap: () {
+              // Navigator.pushNamed(
+              //   context,
+              //   DetailsScreen.routeName,
+              //   arguments: ProductDetailsArguments(
+              //       product: product, quantity: widget.cart.quantity),
+              // );
+            },
             child: Row(
               children: [
                 SizedBox(
