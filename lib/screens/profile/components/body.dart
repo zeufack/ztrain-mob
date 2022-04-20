@@ -44,7 +44,7 @@ class Body extends StatelessWidget {
             icon: "assets/icons/Log out.svg",
             press: () {
               try {
-                auth.signOut();
+                // auth.signOut();
                 //use fake signout form
                 // auth.incorrectLogOut();
                 Navigator.pushNamed(context, SignInScreen.routeName);
