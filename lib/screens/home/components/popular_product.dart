@@ -25,16 +25,20 @@ class _PopularProductsState extends State<PopularProducts> {
 
   loadData() async {
     dynamic results = await ProductDAO().getAllProduct();
-    setState(() {
-      productList = results;
-    });
+    if (mounted) {
+      setState(() {
+        productList = results;
+      });
+    }
   }
 
   void loadFavoriteProduct() async {
     List<Favorite> fav = await FavoriteModel().getData();
-    setState(() {
-      userFavoriteProduct = fav;
-    });
+    if (mounted) {
+      setState(() {
+        userFavoriteProduct = fav;
+      });
+    }
   }
 
   @override

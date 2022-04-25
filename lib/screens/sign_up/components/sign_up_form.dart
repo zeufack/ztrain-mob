@@ -26,6 +26,10 @@ class _SignUpFormState extends State<SignUpForm> {
   bool isObscureC = true;
   final List<String> errors = [];
 
+  final _emailFormFieldController = TextEditingController();
+  final _passwordFormFieldController = TextEditingController();
+  final _confirmPasswordFormFieldController = TextEditingController();
+
   void addError({String error}) {
     if (!errors.contains(error))
       setState(() {
@@ -33,11 +37,20 @@ class _SignUpFormState extends State<SignUpForm> {
       });
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    _emailFormFieldController.dispose();
+    _passwordFormFieldController.dispose();
+    _confirmPasswordFormFieldController.dispose();
+  }
+
   void removeError({String error}) {
-    if (errors.contains(error))
+    if (errors.contains(error)) {
       setState(() {
         errors.remove(error);
       });
+    }
   }
 
   void setLoading() {
@@ -65,6 +78,9 @@ class _SignUpFormState extends State<SignUpForm> {
             isLoading: isLoading,
             press: () async {
               setLoading();
+              setState(() {
+                errors.clear();
+              });
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
                 Response res =
@@ -89,6 +105,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildConformPassFormField() {
     return TextFormField(
+      controller: _confirmPasswordFormFieldController,
       obscureText: isObscureC,
       onSaved: (newValue) => conformPassword = newValue,
       onChanged: (value) {
@@ -129,6 +146,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
+      controller: _passwordFormFieldController,
       obscureText: isObscure,
       onSaved: (newValue) => password = newValue,
       onChanged: (value) {
@@ -169,12 +187,15 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildEmailFormField() {
     return TextFormField(
+      controller: _emailFormFieldController,
       keyboardType: TextInputType.emailAddress,
       onSaved: (newValue) => email = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kEmailNullError);
         } else if (emailValidatorRegExp.hasMatch(value)) {
+          print('email field change');
+
           removeError(error: kInvalidEmailError);
         }
         return null;
