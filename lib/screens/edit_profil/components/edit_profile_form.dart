@@ -73,11 +73,11 @@ class _EditProfileFormState extends State<EditProfileForm> {
   Future<void> loadProfil(userId) async {
     Profil resp = await getUser(userId);
     setState(() {
-      firstName = resp.first_name;
-      lastName = resp.last_name;
+      firstName = resp.firstName;
+      lastName = resp.lastName;
       phoneNumber = resp.phoneNumber;
       address = resp.address;
-      firstNameController.text = resp.first_name;
+      firstNameController.text = resp.firstName;
     });
   }
 

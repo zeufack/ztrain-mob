@@ -6,7 +6,7 @@ import 'package:shop_app/models/Product.dart';
 import 'package:shop_app/models/app_product_manager.dart';
 import 'package:shop_app/models/app_state_manager.dart';
 import 'package:shop_app/models/product_dao.dart';
-import 'package:shop_app/screens/details/details_screen.dart';
+// import 'package:shop_app/screens/details/details_screen.dart';
 
 import '../constants.dart';
 import '../size_config.dart';

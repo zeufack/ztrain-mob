@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/models/app_state_manager.dart';
-import 'package:shop_app/screens/edit_profil/edit_profile_screen.dart';
+// import 'package:shop_app/screens/edit_profil/edit_profile_screen.dart';
 import 'package:shop_app/screens/sign_in/auth.dart';
 
 import 'profile_menu.dart';

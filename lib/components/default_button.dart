@@ -20,9 +20,12 @@ class DefaultButton extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       height: getProportionateScreenHeight(56),
-      child: FlatButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        color: kPrimaryColor,
+      child: TextButton(
+        style: TextButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            backgroundColor: kPrimaryColor),
         onPressed: press,
         child: !isLoading
             ? Text(
@@ -34,6 +37,20 @@ class DefaultButton extends StatelessWidget {
               )
             : loading,
       ),
+      //     FlatButton(
+      //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      //   color: kPrimaryColor,
+      //   onPressed: press,
+      //   child: !isLoading
+      //       ? Text(
+      //           text,
+      //           style: TextStyle(
+      //             fontSize: getProportionateScreenWidth(18),
+      //             color: Colors.white,
+      //           ),
+      //         )
+      //       : loading,
+      // ),
     );
   }
 }
