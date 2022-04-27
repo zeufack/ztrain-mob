@@ -31,7 +31,7 @@ const String kInvalidEmailError = "Veuillez entrer une adresse email valide";
 const String kPassNullError = "Veuillez entrer votre mot de passe";
 const String kShortPassError =
     "Le mot de passe doit contenir au moins 8 caractères";
-const String kMatchPassError = "Les mots de passe n'est pas identique";
+const String kMatchPassError = "Les mots de passe ne sont pas identique";
 const String kNamelNullError = "Veuillez entrer votre nom";
 const String kPhoneNumberNullError =
     "Veuillez entrer votre numéro de téléphone";
