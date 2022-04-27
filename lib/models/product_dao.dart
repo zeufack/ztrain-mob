@@ -95,18 +95,24 @@ class ProductDAO extends AbsProductDAO {
     final uid = user.uid;
     bool exist = false;
     String cardId;
+    int existQty;
+
     await cartCollection
         .where('userId', isEqualTo: uid)
         .where('productId', isEqualTo: productId)
         .get()
         .then((value) => {
               if (value.docs.length == 1)
-                {exist = true, cardId = value.docs[0].id}
+                {
+                  exist = true,
+                  cardId = value.docs[0].id,
+                  existQty = value.docs[0]['quantity']
+                }
             });
     if (exist) {
       return cartCollection
           .doc(cardId)
-          .update({'quantity': quantity})
+          .update({'quantity': quantity + existQty})
           .then((value) => print("panier mis à jour"))
           .catchError((error) => print("Failed to update user: $error"));
     } else {
