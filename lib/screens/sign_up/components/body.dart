@@ -18,9 +18,9 @@ class Body extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: SizeConfig.screenHeight * 0.04), // 4%
-                Text("Creer un Compte", style: headingStyle),
+                Text("Créer un Compte", style: headingStyle),
                 Text(
-                  "Completer vos informations pour vous inscrire",
+                  "Compléter vos informations pour vous inscrire",
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
