@@ -33,7 +33,11 @@ class _HomeHeaderState extends State<HomeHeader> {
                 svgSrc: "assets/icons/Cart Icon.svg",
                 numOfitem:
                     snapshot.data == null ? 0 : snapshot.data.docs.length,
-                press: () => Navigator.pushNamed(context, CartScreen.routeName),
+                press: () {
+                  FocusScopeNode currentFocus = FocusScope.of(context);
+                  currentFocus.unfocus();
+                  Navigator.pushNamed(context, CartScreen.routeName);
+                },
               ),
               IconBtnWithCounter(
                 svgSrc: "assets/icons/Bell.svg",

@@ -69,6 +69,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
 
   Future<void> loadProfil(userId) async {
     Profil resp = await getUser(userId);
+    print(resp.address);
     setState(() {
       firstName = resp.firstName;
       lastName = resp.lastName;
@@ -132,12 +133,12 @@ class _EditProfileFormState extends State<EditProfileForm> {
             text: "Mofifier",
             isLoading: isLoading,
             press: () async {
-              setLoading();
               if (_formKey.currentState.validate()) {
+                setLoading();
                 Response resp = await updateProfil(userId, {
                   'id': userId,
-                  'first_name': firstName,
-                  'last_name': lastName,
+                  'firstName': firstName,
+                  'lastName': lastName,
                   'phoneNumber': phoneNumber,
                   'address': address
                 });
@@ -195,11 +196,12 @@ class _EditProfileFormState extends State<EditProfileForm> {
     return TextFormField(
       initialValue: lastNameValue,
       onChanged: (value) => setState(() {
+        print(lastNameValue);
         lastName = value;
       }),
       decoration: InputDecoration(
         labelText: "Prénom",
-        hintText: lastNameValue != null ? lastNameValue : "Prénom",
+        hintText: lastNameValue != "" ? lastNameValue : "Prénom",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -212,7 +214,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
     return TextFormField(
       controller: firstNameController,
       onChanged: (value) {
-        if (value.isNotEmpty) {
+        print(value.length);
+        if (value.length >= 0) {
           setState(() {
             firstName = value;
           });
@@ -229,7 +232,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
       },
       decoration: InputDecoration(
         labelText: "Nom",
-        hintText: name != null ? name : "Nom",
+        hintText: name != "" ? name : "Nom",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,

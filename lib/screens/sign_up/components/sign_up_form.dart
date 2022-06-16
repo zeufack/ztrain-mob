@@ -56,7 +56,7 @@ class _SignUpFormState extends State<SignUpForm> {
           buildEmailFormField(),
           SizedBox(height: getProportionateScreenHeight(15)),
           Text(
-            '''Le mot de passe doit contenir au moins 8 cartères dont au moins une majuscule, un chiffre et un caratère spéciale''',
+            '''Le mot de passe doit contenir au moins 8 caractères dont au moins une majuscule, un chiffre et un caractère spéciale''',
             textAlign: TextAlign.justify,
           ),
           SizedBox(height: getProportionateScreenHeight(15)),
